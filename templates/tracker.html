@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for count in country %}
+        {{ count.usersname }}
+        {{ count.country_name }}
+        {{ count.travel_to_date }}
+        {{ count.travel_from_date }}
+        {{ count.flight_time_to }}
+        {{ count.flight_time_from }}
+        {{ count.todo_done }}
+        {{ count.blog }}
+        {{ count.rating }}
+    {% endfor %}
+
+{% endblock %}
