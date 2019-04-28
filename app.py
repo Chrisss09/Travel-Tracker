@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, url_for
+import json
+from flask import Flask, render_template, url_for, request
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -10,6 +11,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 
 @app.route('/')
+@app.route('/home')
 def index():
     return render_template('index.html')
 
