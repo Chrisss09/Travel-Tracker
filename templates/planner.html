@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% for count in country %}
+        <div class="card">
+            <h5 class="card-header">{{ count.country_name }}</h5>
+            <div class="card-body">
+                <p class="card-title">Travel Date: {{ count.travel_to_date }}</p>
+                <p class="card-title">Travel Time: {{ count.flight_time_to }}</p>
+                <p class="card-text">{{ count.usersname }}</p>
+                <div class="col-sm-4">
+                    <a href="#" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

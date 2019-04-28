@@ -1,5 +1,4 @@
 import os
-import json
 from flask import Flask, render_template, url_for, request
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -17,7 +16,7 @@ def index():
 
 @app.route('/travel_planner')
 def travel_planner():
-    return render_template('tracker.html', country=mongo.db.country.find())
+    return render_template('planner.html', country=mongo.db.country.find())
 
 
 if __name__ == '__main__':
