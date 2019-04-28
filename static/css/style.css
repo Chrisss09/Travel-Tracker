@@ -5,3 +5,22 @@ body {
 nav {
     background-color: #5b0940;
 }
+
+.carousel-caption {
+    padding-bottom: 12%;
+}
+
+.carousel-caption h5 {
+    font-size: 42px;
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    font-size: 24px;
+    color: #FFF1E3
+}
+
+.carousel-inner>img {
+    width: 100%;
+    height: 50px;
+}
