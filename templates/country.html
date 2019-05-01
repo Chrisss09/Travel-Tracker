@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
     
-    {% for count in country %} 
-    
-        <h1>{{ count.country_name }}</h1>
-        <h2>{{ count.travel_to_date }}</h2>
-        <h3>{{ count.travel_from_date }}</h3>
-        <h4>{{ count.flight_time_to }}</h4>
-        <h5>{{ count.flight_time_from }}</h5>
-        <h5>{{ count.todo_done }}</h5>
-        <h5>{{ count.blog }}</h5>
-        <h5>{{ count.rating }}</h5>
 
-    {% endfor %}
+    
+    <h1>{{ specific_country.country_name }}</h1>
+    <h2>{{ specific_country.travel_to_date }}</h2>
+    <h3>{{ specific_country.travel_from_date }}</h3>
+    <h4>{{ specific_country.flight_time_to }}</h4>
+    <h5>{{ specific_country.flight_time_from }}</h5>
+    <h5>{{ specific_country.todo_done }}</h5>
+    <h5>{{ specific_country.blog }}</h5>
+    <h5>{{ specific_country.rating }}</h5>
+
+
 
 {% endblock %}

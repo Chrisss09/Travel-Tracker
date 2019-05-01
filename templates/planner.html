@@ -9,7 +9,7 @@
                 <p class="card-title">Travel Time: {{ count.travel_from_date }} at {{ count.flight_time_from }}</p>
                 <p class="card-text">{{ count.usersname }}</p>
                 <div class="col-sm-4">
-                    <a href="{{ url_for('travel_planner', country_id=country._id) }}" class="btn btn-primary">View</a>
+                    <a href="{{ url_for('current_country', country_id=count._id) }}" class="btn btn-primary">View</a>
                     <a href="#" class="btn btn-primary">Edit</a>
                     <a href="#" class="btn btn-primary">Delete</a>
                 </div>
