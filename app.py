@@ -9,6 +9,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 countries = mongo.db.country.find()
+hotels = mongo.db.hotel.find()
 
 @app.route('/')
 @app.route('/home')
@@ -17,14 +18,13 @@ def index():
 
 @app.route('/travel_planner')
 def travel_planner():
-    return render_template('planner.html', country=mongo.db.country.find())
+    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
-@app.route('/current_country/<country_id>', methods=['POST', 'GET'])
-def current_country(country_id):
-    #for count in countries.find():
-        #print(count)
+@app.route('/current_country/<country_id>/<hotel_info>', methods=['POST', 'GET'])
+def current_country(country_id, hotel_info):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    return render_template('country.html', specific_country = specific_country)
+    specific_hotel = mongo.db.hotel.find_one({'_id': ObjectId(hotel_info)})
+    return render_template('country.html', specific_country = specific_country, specific_hotel = specific_hotel)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
