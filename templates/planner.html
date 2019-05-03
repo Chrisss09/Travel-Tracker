@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    {% for info in hotel %}
-        {% for count in country %}
-            <div class="card">
-                <h5 class="card-header">{{ count.country_name }}</h5>
-                <div class="card-body">
-                    <p class="card-title">Travel Date: {{ count.travel_to_date }} at {{ count.flight_time_to }}</p>
-                    <p class="card-title">Travel Time: {{ count.travel_from_date }} at {{ count.flight_time_from }}</p>
-                    <p class="card-text">{{ count.rating }}</p>
-                    <div class="col-sm-4">
-                        <a href="{{ url_for('current_country', country_id=count._id, hotel_info=info._id) }}" class="btn btn-primary">View</a>
-                        <a href="#" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-primary">Delete</a>
-                    </div>
+
+    {% for count in country %}
+        <div class="card">
+            <h5 class="card-header">{{ count.country_name }}</h5>
+            <div class="card-body">
+                <p class="card-title">Travel Date: {{ count.travel_to_date }} at {{ count.flight_time_to }}</p>
+                <p class="card-title">Travel Time: {{ count.travel_from_date }} at {{ count.flight_time_from }}</p>
+                <p class="card-text">{{ count.rating }}</p>
+                <div class="col-sm-4">
+                    <a href="{{ url_for('current_country', country_id=count._id) }}" class="btn btn-primary">View</a>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-primary">Delete</a>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+        
     {% endfor %}
+
 
 {% endblock %}
