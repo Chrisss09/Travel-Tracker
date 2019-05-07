@@ -24,10 +24,6 @@ def travel_planner():
 def current_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    print(specific_hotel)
-    #for info in hotels:
-        #if specific_country['country_name'] == info['country_name']:
-            #print(info)
     return render_template('country.html', specific_country = specific_country, specific_hotel = specific_hotel)
 
 if __name__ == '__main__':
