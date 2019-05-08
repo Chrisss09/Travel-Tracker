@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -28,7 +28,14 @@ def current_country(country_id):
 
 @app.route('/add_country')
 def add_country():
-    return render_template('addcount.html')
+    return render_template('addcount.html', country = countries, hotel = hotels)
+
+@app.route('/confirm_country', methods=['POST'])
+def confirm_country():
+    the_country = mongo.db.country
+    the_country.insert_one(request.form.to_dict())
+    return redirect(url_for('travel_planner'))
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
