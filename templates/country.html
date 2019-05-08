@@ -4,8 +4,8 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-12">
-            <h1 class="display-1 current-country">
-                {{ specific_country.country_name }}
+            <h1 class="display-1">
+                <strong>{{ specific_country.country_name }}</strong>
             </h1>
         </div>
     </div>
@@ -30,10 +30,10 @@
     <br>
     <div class="row">
         <div class="col-sm-6">
-            <h3>Todo / Done list</h3><p>{{ specific_country.todo_done }}</p>
+            <h3>Todo / Done list:</h3><p>{{ specific_country.todo_done }}</p>
         </div>
         <div class="col-sm-6">
-            <h3>Hotel</h3><p>{{ specific_hotel.hotel_name }}</p>
+            <h3>Hotel:</h3><p>{{ specific_hotel.hotel_name }}</p>
         </div>
     </div>
     <div class="row">
@@ -51,7 +51,7 @@
         <div class="col-sm-4">
             <h3>Key notes:</h3>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 justify-left">
             <p>{{ specific_country.blog }}</p>
         </div>
     </div>
@@ -62,24 +62,11 @@
             <p>{{ specific_country.rating }} / 5</p>
         </div>
     </div>
-    <div class="col-sm-4 ml-auto">
+    <div class="col-sm-4 ml-auto close-btn">
         <a href="{{ url_for('travel_planner') }}" class="btn btn-primary">Back</a>
+        <a href="#" class="btn btn-primary">Edit</a>
     </div>
+    <br>
 </div>
 
 {% endblock %}
-
-
-
-<h1>{{ specific_country.country_name }}</h1>
-<h2>{{ specific_country.travel_to_date }}</h2>
-<h3>{{ specific_country.travel_from_date }}</h3>
-<h4>{{ specific_country.flight_time_to }}</h4>
-<h5>{{ specific_country.flight_time_from }}</h5>
-<h5>{{ specific_country.todo_done }}</h5>
-<h5>{{ specific_country.blog }}</h5>
-<h5>{{ specific_country.rating }}</h5>
-<h5>{{ specific_country.hotel_name }}</h5>
-
-<h1>{{ specific_hotel.hotel_name }}</h1>
-<h1>{{ specific_hotel.hotel_address }}</h1>

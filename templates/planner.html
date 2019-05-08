@@ -8,7 +8,7 @@
             <div class="card-body">
                 <p class="card-title">Travel Date: {{ count.travel_to_date }} at {{ count.flight_time_to }}</p>
                 <p class="card-title">Travel Time: {{ count.travel_from_date }} at {{ count.flight_time_from }}</p>
-                <p class="card-text">{{ count.rating }}</p>
+                <p class="card-text">Rating: {{ count.rating }}</p>
                 <div class="col-sm-4">
                     <a href="{{ url_for('current_country', country_id=count._id) }}" class="btn btn-primary">View</a>
                     <a href="#" class="btn btn-primary">Edit</a>
@@ -18,8 +18,9 @@
         </div>
         
     {% endfor %}
+    <br>
     <div class="col-sm-4 ml-auto">
-        <a href="#" class="btn btn-primary">Add to planner</a>
+        <a href="{{ url_for('add_country') }}" class="btn btn-primary">Add to planner</a>
     </div>
 
 {% endblock %}

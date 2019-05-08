@@ -26,6 +26,10 @@ def current_country(country_id):
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
     return render_template('country.html', specific_country = specific_country, specific_hotel = specific_hotel)
 
+@app.route('/add_country')
+def add_country():
+    return render_template('addcount.html')
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 5000)),
