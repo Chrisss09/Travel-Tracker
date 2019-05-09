@@ -33,7 +33,9 @@ def add_country():
 @app.route('/confirm_country', methods=['POST'])
 def confirm_country():
     the_country = mongo.db.country
+    the_hotel = mongo.db.hotel
     the_country.insert_one(request.form.to_dict())
+    the_hotel.insert_one(request.form.to_dict())
     return redirect(url_for('travel_planner'))
 
 
