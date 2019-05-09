@@ -34,8 +34,24 @@ def add_country():
 def confirm_country():
     the_country = mongo.db.country
     the_hotel = mongo.db.hotel
-    the_country.insert_one(request.form.to_dict())
-    the_hotel.insert_one(request.form.to_dict())
+    the_country.insert_many([
+    {
+        'country_name':request.form.get('country_name'),
+        'travel_to_date':request.form.get('travel_to_date'),
+        'travel_from_date':request.form.get('travel_from_date'),
+        'flight_time_to':request.form.get('flight_time_to'),
+        'flight_time_from':request.form.get('flight_time_from'),
+        'todo_done':request.form.get('todo_done'),
+        'blog':request.form.get('blog'),
+        'rating':request.form.get('rating')
+        }])
+    the_hotel.insert_many([
+    {
+        'country_name':request.form.get('country_name'),
+        'hotel_name':request.form.get('hotel_name'),
+        'hotel_address':request.form.get('hotel_address'),
+        'hotel_postcode':request.form.get('hotel_postcode')
+    }])
     return redirect(url_for('travel_planner'))
 
 
