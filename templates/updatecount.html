@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form action="{{ url_for('update_count', country_id=count._id) }}" method="POST" class="col-sm-12">
+<form action="{{ url_for('update_count', country_id=specific_country._id) }}" method="POST" class="col-sm-12">
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="inputEmail4">Country</label>

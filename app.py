@@ -62,8 +62,10 @@ def edit_country(country_id):
 
 @app.route('/update_count/<country_id>', methods=['POST'])
 def update_count(country_id):
+    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     update_country = mongo.db.country
-    update_country.update_many([ {'_id': ObjectId(country_id)},
+    update_hotel = mongo.db.hotel
+    update_country.update( {'_id': ObjectId(country_id)},
     {
         'country_name':request.form.get('country_name'),
         'travel_to_date':request.form.get('travel_to_date'),
@@ -72,35 +74,17 @@ def update_count(country_id):
         'flight_time_from':request.form.get('flight_time_from'),
         'todo_done':request.form.get('todo_done'),
         'blog':request.form.get('blog'),
-        'rating':request.form.get('rating'),
+        'rating':request.form.get('rating')
+    })
+    update_hotel.update( {'country_name': specific_country['country_name']},
+    {
+        'country_name':request.form.get('country_name'),
         'hotel_name':request.form.get('hotel_name'),
         'hotel_address':request.form.get('hotel_address'),
         'hotel_postcode':request.form.get('hotel_postcode')
-    }])
-    return redirect(url_for('travel_planner'))
-"""
-@app.route('/edit_task/<task_id>')
-def edit_task(task_id):
-    the_task =  mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-    all_categories =  mongo.db.categories.find()
-    return render_template('edittask.html', task=the_task, categories=all_categories)
-
-
-@app.route('/update_task/<task_id>', methods=['POST'])
-def update_task(task_id):
-    tasks = mongo.db.tasks
-    tasks.update( {'_id': ObjectId(task_id)},
-    {
-        'task_name':request.form.get('task_name'),
-        'category_name':request.form.get('category_name'),
-        'task_description': request.form.get('task_description'),
-        'due_date': request.form.get('due_date'),
-        'is_urgent':request.form.get('is_urgent')
     })
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('travel_planner'))
 
-    <form action="{{ url_for('update_task', task_id=task._id) }}" method="POST" class="col s12">
-"""
 
 
 if __name__ == '__main__':
