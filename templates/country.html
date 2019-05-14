@@ -64,7 +64,7 @@
     </div>
     <div class="col-sm-4 ml-auto">
         <a href="{{ url_for('travel_planner') }}" class="btn btn-primary">Back</a>
-        <a href="#" class="btn btn-primary">Edit</a>
+        <a href="{{ url_for('edit_country', country_id=specific_country._id) }}" class="btn btn-primary">Edit</a>
     </div>
     <br>
 </div>
