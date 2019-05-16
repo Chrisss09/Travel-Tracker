@@ -84,7 +84,17 @@ def update_count(country_id):
         'hotel_postcode':request.form.get('hotel_postcode')
     })
     return redirect(url_for('travel_planner'))
+    
 
+@app.route('/delete_country/<country_id>')
+def delete_country(country_id):
+    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
+    del_country = mongo.db.country
+    del_hotel = mongo.db.hotel
+    del_country.remove( {'_id': ObjectId(country_id)})
+    del_hotel.remove( {'country_name': specific_country['country_name']})
+    return redirect(url_for('travel_planner'))
+    
 
 
 if __name__ == '__main__':
