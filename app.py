@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import folium
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'travel_tracker'
@@ -94,7 +95,12 @@ def delete_country(country_id):
     del_country.remove( {'_id': ObjectId(country_id)})
     del_hotel.remove( {'country_name': specific_country['country_name']})
     return redirect(url_for('travel_planner'))
-    
+
+@app.route('/travel_map')
+def travel_map():
+    map = folium.Map(location=[53.49, -2.24])
+    map.save('templates//travelmap.html')
+    return render_template('travelmap.html')
 
 
 if __name__ == '__main__':
