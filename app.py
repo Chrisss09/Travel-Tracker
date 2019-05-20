@@ -11,7 +11,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
-map_obj = folium.Map(location=[53.49, -2.24], zoom_start=4, width="100%", height="90%")
+map_obj = folium.Map(location=[53.49, -2.24], zoom_start=4)
 
 @app.route('/')
 @app.route('/home')
@@ -97,13 +97,18 @@ def delete_country(country_id):
     del_hotel.remove( {'country_name': specific_country['country_name']})
     return redirect(url_for('travel_planner'))
 
-@app.route('/travel_map')
-def travel_map():
+@app.route('/my_map')
+def my_map():
     global map_obj
-    #map = folium.Map(location=[53.49, -2.24], zoom_start=4, width="100%", height="90%")
     #map.save('templates//travelmap.html')
     #return render_template('travelmap.html', map=map)
     return map_obj.get_root().render()
+    #return render_template('map.html')
+
+@app.route('/travel_map')
+def travel_map():
+    global map_obj
+    return render_template('map.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
