@@ -7,4 +7,22 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    function onPositionReceived(position){
+        console.log(position);
+    }
+
+    function locationNotReceived(positionError){
+        console.log(positionError);
+    }
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+
+        var watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
+        navigator.geolocation.clearWatch(watch)
+    }
+</script>
+
 {% endblock %}
