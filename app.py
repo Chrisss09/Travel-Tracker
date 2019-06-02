@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
+import requests
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'travel_tracker'
@@ -12,6 +13,7 @@ mongo = PyMongo(app)
 countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
 map_obj = folium.Map(location=[53.49, -2.24], zoom_start=5)
+map_obj.save('templates/travelmap.html')
 
 @app.route('/')
 @app.route('/home')
@@ -109,7 +111,12 @@ def travel_map():
     #specific_country = mongo.db.country.find_one()
     #location_marker = folium.Marker(location=specific_country['country_name'], popup="I am here").add_to(map_obj)
     #if specific_country['country_name'] == 'country_name':
-        #return location_marker
+        #return location_marker    
+    res = requests.get('https://ipinfo.io/')
+    data = res.json()
+    print(res.text)
+    location = data['loc'].split(',')
+    folium.Marker(location=location, popup="I am here").add_to(map_obj)
     return render_template('map.html')#, country=countries
 
 if __name__ == '__main__':

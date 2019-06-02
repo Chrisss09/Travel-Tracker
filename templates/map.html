@@ -9,8 +9,39 @@
 
 
 <script type="text/javascript">
+
+    var addition = "DEFAULT LOCATION";
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000 * 60,
+        maximumAge: 0
+    };
+
+    if (navigator.geolocation) {
+        console.log('geolocation supported');
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    } else {
+        console.log("geolocation not supported");
+        console.log(addition);
+    }
+
+    function success(position) {
+        addition = position.coords.latitude + "," + position.coords.longitude;
+        console.log(addition);
+    }   
+
+    function error(err) {
+        console.error(err.message);
+    }
+    
+</script>
+
+{% endblock %}
+
+<!-- <script type="text/javascript">
+
     function onPositionReceived(position){
-        console.log(position);
+        console.log(position)
     }
 
     function locationNotReceived(positionError){
@@ -18,11 +49,10 @@
     }
 
     if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived);
+        navigator.geolocation.getCurrentPosition(onPositionReceived, locationNotReceived,{timeout:10000});
 
         var watch = navigator.geolocation.watchPosition(onPositionReceived, locationNotReceived);
-        navigator.geolocation.clearWatch(watch)
+        navigator.geolocation.clearWatch(watch);
     }
-</script>
-
-{% endblock %}
+    
+</script> -->
