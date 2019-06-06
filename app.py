@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
 import requests
+from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = 'travel_tracker'
@@ -14,6 +15,7 @@ countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
 map_obj = folium.Map(location=[53.49, -2.24], zoom_start=5)
 map_obj.save('templates/travelmap.html')
+url = requests.get('https://ipinfo.io/')
 
 @app.route('/')
 @app.route('/home')
@@ -102,22 +104,28 @@ def delete_country(country_id):
 @app.route('/my_map')
 def my_map():
     global map_obj
-    #map_obj.save('templates/travelmap.html')
     return map_obj.get_root().render()
 
 @app.route('/travel_map')
 def travel_map():
-    global map_obj
-    #specific_country = mongo.db.country.find_one()
-    #location_marker = folium.Marker(location=specific_country['country_name'], popup="I am here").add_to(map_obj)
-    #if specific_country['country_name'] == 'country_name':
-        #return location_marker    
-    res = requests.get('https://ipinfo.io/')
-    data = res.json()
-    print(res.text)
-    location = data['loc'].split(',')
-    folium.Marker(location=location, popup="I am here").add_to(map_obj)
-    return render_template('map.html')#, country=countries
+    global map_obj   
+    data = url.json()
+    my_loc = data['loc'].split(',')
+    folium.Marker(location=my_loc, popup="I am here").add_to(map_obj)
+
+    specific_country = mongo.db.country.find_one()
+    geolocator = Nominatim(user_agent="Travel Tracker")
+    count = geolocator.geocode(specific_country['country_name'])
+    print(count.address)
+    print((count.latitude, count.longitude))
+    loc = (count.latitude, count.longitude)
+    print(count.raw)
+    folium.Marker(location=loc, popup="I am here").add_to(map_obj)
+    # location_marker = folium.Marker(specific_country['country_name'], popup="{{ country_name }}").add_to(map_obj)
+    # if specific_country['country_name'] == 'country_name':
+    #     return location_marker   
+
+    return render_template('map.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
