@@ -4,9 +4,12 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
 import requests
+import pandas as pd
 from geopy.geocoders import Nominatim
+from geopy.extra.rate_limiter import RateLimiter
 
 app = Flask(__name__)
+geolocator = Nominatim(user_agent="Travel Tracker")
 app.config["MONGO_DBNAME"] = 'travel_tracker'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
@@ -113,19 +116,18 @@ def travel_map():
     my_loc = data['loc'].split(',')
     folium.Marker(location=my_loc, popup="I am here").add_to(map_obj)
 
+    fg = folium.FeatureGroup(name="travel_map")
     specific_country = mongo.db.country.find_one()
-    geolocator = Nominatim(user_agent="Travel Tracker")
-    count = geolocator.geocode(specific_country['country_name'])
-    print(count.address)
-    print((count.latitude, count.longitude))
-    loc = (count.latitude, count.longitude)
-    print(count.raw)
-    folium.Marker(location=loc, popup="I am here").add_to(map_obj)
-    # location_marker = folium.Marker(specific_country['country_name'], popup="{{ country_name }}").add_to(map_obj)
-    # if specific_country['country_name'] == 'country_name':
-    #     return location_marker   
+    for count in countries:
+        df = pd.DataFrame({'name': count['country_name']}, index=[0])
+        geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+        df['location'] = df['name'].apply(geocode)
+        df['point'] = df['location'].apply(lambda loc: tuple(loc.point) if loc else None)
+        print(df['point'][0][:-1])
+        fg.add_child(folium.Marker(location=df['point'][0][:-1], popup=count['country_name'], icon=folium.Icon(color='purple')))
+        map_obj.add_child(fg)
 
-    return render_template('map.html')
+    return render_template('map.html', specific_country=specific_country)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
