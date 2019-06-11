@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
+from folium import plugins
 import requests
 import pandas as pd
 from geopy.geocoders import Nominatim
@@ -16,7 +17,7 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
-map_obj = folium.Map(location=[53.49, -2.24], zoom_start=5)
+map_obj = folium.Map([45, 3], zoom_start=4)
 map_obj.save('templates/travelmap.html')
 url = requests.get('https://ipinfo.io/')
 
@@ -111,11 +112,21 @@ def my_map():
 
 @app.route('/travel_map')
 def travel_map():
-    global map_obj   
+    global map_obj
+
+    plugins.Fullscreen(
+        position='topright',
+        title='Expand me',
+        title_cancel='Exit me',
+        force_separate_button=True
+    ).add_to(map_obj)   
+
+    # Track users current location
     data = url.json()
     my_loc = data['loc'].split(',')
     folium.Marker(location=my_loc, popup="I am here").add_to(map_obj)
 
+    # Adding country name from DB and adding a marker to map
     fg = folium.FeatureGroup(name="travel_map")
     specific_country = mongo.db.country.find_one()
     for count in countries:
@@ -123,10 +134,9 @@ def travel_map():
         geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
         df['location'] = df['name'].apply(geocode)
         df['point'] = df['location'].apply(lambda loc: tuple(loc.point) if loc else None)
-        print(df['point'][0][:-1])
         fg.add_child(folium.Marker(location=df['point'][0][:-1], popup=count['country_name'], icon=folium.Icon(color='purple')))
-        map_obj.add_child(fg)
-
+        map_obj.add_child(fg) 
+        
     return render_template('map.html', specific_country=specific_country)
 
 if __name__ == '__main__':
