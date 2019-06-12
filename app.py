@@ -19,6 +19,12 @@ countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
 map_obj = folium.Map([45, 3], zoom_start=4)
 map_obj.save('templates/travelmap.html')
+plugins.Fullscreen(
+    position='topright',
+    title='Expand me',
+    title_cancel='Exit me',
+    force_separate_button=True
+).add_to(map_obj)  
 url = requests.get('https://ipinfo.io/')
 
 @app.route('/')
@@ -114,13 +120,6 @@ def my_map():
 def travel_map():
     global map_obj
 
-    plugins.Fullscreen(
-        position='topright',
-        title='Expand me',
-        title_cancel='Exit me',
-        force_separate_button=True
-    ).add_to(map_obj)   
-
     # Track users current location
     data = url.json()
     my_loc = data['loc'].split(',')
@@ -135,7 +134,7 @@ def travel_map():
         df['location'] = df['name'].apply(geocode)
         df['point'] = df['location'].apply(lambda loc: tuple(loc.point) if loc else None)
         fg.add_child(folium.Marker(location=df['point'][0][:-1], popup=count['country_name'], icon=folium.Icon(color='purple')))
-        map_obj.add_child(fg) 
+        map_obj.add_child(fg)  
         
     return render_template('map.html', specific_country=specific_country)
 
