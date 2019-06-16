@@ -1,9 +1,11 @@
 import os
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import bcrypt
 import folium
 from folium import plugins
+from folium.plugins import MeasureControl
 import requests
 import pandas as pd
 from geopy.geocoders import Nominatim
@@ -17,21 +19,47 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 mongo = PyMongo(app)
 countries = mongo.db.country.find()
 hotels = mongo.db.hotel.find()
-map_obj = folium.Map([45, 3], zoom_start=4)
+
+# Generated map
+map_obj = folium.Map([45, 3], zoom_start=4, tiles="cartodbpositron")
+
+# Locates current location
 plugins.LocateControl().add_to(map_obj)
+
+# Measure distance of points
+map_obj.add_child(MeasureControl())
+
+# Create a full screen map
 plugins.Fullscreen(
     position='topright',
     title='Expand me',
     title_cancel='Exit me',
     force_separate_button=True
 ).add_to(map_obj)
-map_obj.save('templates/travelmap.html')
+#map_obj.save('templates/travelmap.html')
+map_obj.save(os.path.join('templates/travelmap.html'))
 url = requests.get('https://ipinfo.io/')
 
 @app.route('/')
 @app.route('/home')
 def index():
+    if 'username' in session:
+        return 'You are logged in as ' + session['username']
     return render_template('index.html')
+
+@app.route('/signin', methods=['POST', 'GET'])
+def signin():
+    if request.method == 'POST':
+        user = mongo.db.user
+        existing_user = user.find_one({'name': request.form['username']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['password'].encode('UTF-8'), bcrypt.gensalt())
+            user.insert_one({'username': request.form['username'], 'password' : hashpass})
+            session['username'] = request.form['username']
+            return redirect(url_for('travel_planner'))
+
+    return render_template('signin.html')
 
 @app.route('/travel_planner')
 def travel_planner():
@@ -133,6 +161,7 @@ def travel_map():
     return render_template('map.html', specific_country=specific_country)
 
 if __name__ == '__main__':
+    app.secret_key = '260989'
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 5000)),
             debug=True)
