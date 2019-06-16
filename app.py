@@ -43,23 +43,36 @@ url = requests.get('https://ipinfo.io/')
 @app.route('/')
 @app.route('/home')
 def index():
-    if 'username' in session:
-        return 'You are logged in as ' + session['username']
+    # if 'username' in session:
+    #     return 'You are logged in as ' + session['username']
     return render_template('index.html')
 
-@app.route('/signin', methods=['POST', 'GET'])
-def signin():
+@app.route('/login', methods=['POST'])
+def login():
+    user = mongo.db.user
+    current_user = user.find_one({'username': request.form['username']})
+
+    if current_user:
+        if bcrypt.hashpw(request.form['password'].encode('utf-8'), current_user['password'].encode('utf-8')) == current_user['password'].encode('utf-8'):
+            session['username'] = request.form['username']
+            return redirect(url_for('travel_planner'))
+    #return "Invalid username or password"
+    
+
+@app.route('/register', methods=['POST', 'GET'])
+def register():
     if request.method == 'POST':
         user = mongo.db.user
-        existing_user = user.find_one({'name': request.form['username']})
+        existing_user = user.find_one({'username': request.form['username']})
 
         if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('UTF-8'), bcrypt.gensalt())
+            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
             user.insert_one({'username': request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
+        #return "That user name already exists"
 
-    return render_template('signin.html')
+    return render_template('register.html')
 
 @app.route('/travel_planner')
 def travel_planner():
