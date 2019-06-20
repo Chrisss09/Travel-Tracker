@@ -1,3 +1,4 @@
 static/images
 /venv
 /.vscode
+/__pycache__

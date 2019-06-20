@@ -43,20 +43,24 @@ url = requests.get('https://ipinfo.io/')
 @app.route('/')
 @app.route('/home')
 def index():
-    # if 'username' in session:
-    #     return 'You are logged in as ' + session['username']
     return render_template('index.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    user = mongo.db.user
-    current_user = user.find_one({'username': request.form['username']})
+    if request.method == 'POST':
+        user = mongo.db.user
+        current_user = user.find_one({'username': request.form['username']})
 
-    if current_user:
-        if bcrypt.hashpw(request.form['password'].encode('utf-8'), current_user['password'].encode('utf-8')) == current_user['password'].encode('utf-8'):
-            session['username'] = request.form['username']
-            return redirect(url_for('travel_planner'))
-    #return "Invalid username or password"
+        if current_user:
+            if bcrypt.hashpw(request.form['password'].encode('utf-8'), current_user['password'].encode('utf-8')) == current_user['password'].encode('utf-8'):
+                session['username'] = request.form['username']
+                return redirect(url_for('travel_planner'))
+        return "Invalid username or password"
+    return render_template('login.html')
+
+    # if 'username' in session:
+    #     return 'You are logged in as ' + session['username']
+    # return render_template('login.html')
     
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -70,12 +74,14 @@ def register():
             user.insert_one({'username': request.form['username'], 'password' : hashpass})
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
-        #return "That user name already exists"
+        return "That user name already exists"
 
     return render_template('register.html')
 
 @app.route('/travel_planner')
 def travel_planner():
+    if 'username' in session:
+        return 'You are logged in as ' + session['username']
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
