@@ -3,6 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import bcrypt
+import base64
 import folium
 from folium import plugins
 from folium.plugins import MeasureControl
@@ -49,19 +50,16 @@ def index():
 def login():
     if request.method == 'POST':
         user = mongo.db.user
+        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
         current_user = user.find_one({'username': request.form['username']})
 
         if current_user:
-            if bcrypt.hashpw(request.form['password'].encode('utf-8'), current_user['password'].encode('utf-8')) == current_user['password'].encode('utf-8'):
+            if bcrypt.hashpw(bytes(request.form['password'], 'utf-8'), hashpass) == hashpass:
                 session['username'] = request.form['username']
                 return redirect(url_for('travel_planner'))
         return "Invalid username or password"
     return render_template('login.html')
 
-    # if 'username' in session:
-    #     return 'You are logged in as ' + session['username']
-    # return render_template('login.html')
-    
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
