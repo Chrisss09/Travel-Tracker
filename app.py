@@ -74,7 +74,7 @@ def register():
 @app.route('/travel_planner')
 def travel_planner():
     if 'username' in session:
-        flash('Welcome ' + session['username'])
+        flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
