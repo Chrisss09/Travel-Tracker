@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
+    <div class="card user-log">
+        {% for message in get_flashed_messages() %}
+        <h5 class="card-header">
+            {{message}}
+        {% endfor %}
+        </div>
+    </div>
 
     {% for count in country %}
         <div class="card">
