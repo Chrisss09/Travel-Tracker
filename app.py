@@ -54,6 +54,10 @@ def login():
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
         flash("Invalid username")
+
+    if 'username' in session:
+        return redirect(url_for('index'))
+        
     return render_template('login.html')
 
 
