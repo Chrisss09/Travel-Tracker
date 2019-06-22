@@ -2,7 +2,6 @@ import os
 from flask import Flask, render_template, url_for, request, redirect, session, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import bcrypt
 import folium
 from folium import plugins
 from folium.plugins import MeasureControl
@@ -49,14 +48,12 @@ def index():
 def login():
     if request.method == 'POST':
         user = mongo.db.user
-        hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
         current_user = user.find_one({'username': request.form['username']})
 
         if current_user:
-            if bcrypt.hashpw(bytes(request.form['password'], 'utf-8'), hashpass) == hashpass:
-                session['username'] = request.form['username']
-                return redirect(url_for('travel_planner'))
-        flash("Invalid username or password")
+            session['username'] = request.form['username']
+            return redirect(url_for('travel_planner'))
+        flash("Invalid username")
     return render_template('login.html')
 
 
@@ -67,18 +64,17 @@ def register():
         existing_user = user.find_one({'username': request.form['username']})
 
         if existing_user is None:
-            hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-            user.insert_one({'username': request.form['username'], 'password' : hashpass})
+            user.insert_one({'username': request.form['username']})
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
-        return "That user name already exists"
+        flash("That username already exists")
 
     return render_template('register.html')
 
 @app.route('/travel_planner')
 def travel_planner():
     if 'username' in session:
-        flash('You are logged in as ' + session['username'])
+        flash('Welcome ' + session['username'])
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
