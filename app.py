@@ -53,11 +53,11 @@ def login():
         if current_user:
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
-        flash("Invalid username")
+        flash("Username not recognised")
 
     if 'username' in session:
-        return redirect(url_for('index'))
-        
+        return redirect(url_for('travel_planner'))
+
     return render_template('login.html')
 
 
@@ -79,7 +79,7 @@ def register():
 def travel_planner():
     if 'username' in session:
         flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
-    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
+    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
@@ -166,7 +166,6 @@ def travel_map():
 
     # Adding country name from DB and adding a marker to map
     f_g = folium.FeatureGroup(name="travel_map")
-    specific_country = mongo.db.country.find_one()
     for count in countries:
         d_f = pd.DataFrame({'name': count['country_name']}, index=[0])
         geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
@@ -174,7 +173,7 @@ def travel_map():
         d_f['point'] = d_f['location'].apply(lambda loc: tuple(loc.point) if loc else None)
         f_g.add_child(folium.Marker(location=d_f['point'][0][:-1], popup=count['country_name'], icon=folium.Icon(color='purple')))
         map_obj.add_child(f_g)
-    return render_template('map.html', specific_country=specific_country)
+    return render_template('map.html')
 
 if __name__ == '__main__':
     app.secret_key = '260989'
