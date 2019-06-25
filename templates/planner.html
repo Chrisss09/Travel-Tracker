@@ -10,12 +10,11 @@
     </div>
 
     {% for count in country %}
-        <div class="card border-dark mb-3 text-center justify-content-center" style="max-width: 18rem; float: left; margin: 10px;">
+        <div class="card border-dark mb-3 text-center justify-content-center" style="max-width: 18rem; float: left; margin: 20px;">
             <div class="card-header">
                 <h5>{{ count.country_name }}</h5>
             </div>
             <div class="card-body">
-                <p class="card-title"><b>User: {{ count.username }}</b></p>
                 <p class="card-title">Travel to: {{ count.travel_to_date }} at {{ count.flight_time_to }}</p>
                 <p class="card-title">Travel from: {{ count.travel_from_date }} at {{ count.flight_time_from }}</p>
                 <p class="card-text">Rating: {{ count.rating }}</p>
@@ -26,10 +25,9 @@
                 </div>
             </div>
         </div>
-        
     {% endfor %}
     <br>
-    <div class="col-sm-4 ml-auto" style="margin-bottom: 5px;">
+    <div class="col-sm-4 ml-auto fixed-bottom" style="margin-bottom: 5px;">
         <a href="{{ url_for('add_country') }}" class="btn btn-primary">Add to planner</a>
     </div>
 

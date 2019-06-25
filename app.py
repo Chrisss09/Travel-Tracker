@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, request, redirect, session, flash
+from flask import Flask, render_template, url_for, request, redirect, session, flash, g
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
@@ -12,6 +12,7 @@ from geopy.extra.rate_limiter import RateLimiter
 
 app = Flask(__name__)
 geolocator = Nominatim(user_agent="Travel Tracker")
+app.config["SECRET_KEY"] = '_u8okxni0bWuLx21J1tCDQ'
 app.config["MONGO_DBNAME"] = 'travel_tracker'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
@@ -77,9 +78,21 @@ def register():
 
 @app.route('/travel_planner')
 def travel_planner():
-    if 'username' in session:
+    # if 'username' in session:
+    #     flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
+    # flash("Hello, please sign in to add to your planner")
+
+    if g.user:
         flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
-    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
+        return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
+    flash('Please sign in to add to your planner')
+    return render_template('planner.html')
+
+@app.before_request
+def before_request():
+    g.user = None
+    if 'username' in session:
+        g.user = session['username']
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
@@ -176,7 +189,6 @@ def travel_map():
     return render_template('map.html')
 
 if __name__ == '__main__':
-    app.secret_key = '260989'
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 5000)),
             debug=True)
