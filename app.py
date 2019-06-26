@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, url_for, request, redirect, session, flash, g
+from flask import Flask, render_template, url_for, request, redirect, session, flash
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import folium
@@ -76,23 +76,18 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('travel_planner'))
+
 @app.route('/travel_planner')
 def travel_planner():
-    # if 'username' in session:
-    #     flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
-    # flash("Hello, please sign in to add to your planner")
-
-    if g.user:
-        flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
-        return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
-    flash('Please sign in to add to your planner')
-    return render_template('planner.html')
-
-@app.before_request
-def before_request():
-    g.user = None
-    if 'username' in session:
-        g.user = session['username']
+    if 'username' not in session:
+        flash('Please sign in to add to your planner')
+        return render_template('planner.html')
+    flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
+    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
