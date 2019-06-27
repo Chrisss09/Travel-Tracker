@@ -83,9 +83,18 @@ def logout():
 
 @app.route('/travel_planner')
 def travel_planner():
+    """
+    TODO
+    route requires GET and POST methods
+    Maybe add in code - request.form.get
+    
+    specific_user = mongo.db.user.find_one({'_id': ObjectId(country_id)})
+    specific_country = mongo.db.country.find_one({'username': specific_user['username']})
+    """
+
     if 'username' not in session:
         flash('Please sign in to add to your planner')
-        return render_template('planner.html')
+        return render_template('base.html')
     flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
 

@@ -3,8 +3,8 @@
 
     <div class="card">
         {% for message in get_flashed_messages() %}
-        <h5 class="card-header mx-auto d-block">
-            {{message}}
+        <div class="card-header mx-auto d-block">
+            <h5>{{message}}</h5>
         </div>
         {% endfor %}
     </div>
