@@ -38,7 +38,6 @@ plugins.Fullscreen(
 ).add_to(map_obj)
 #map_obj.save('templates/travelmap.html')
 map_obj.save(os.path.join('templates/travelmap.html'))
-url = requests.get('https://ipinfo.io/')
 
 @app.route('/')
 @app.route('/home')
@@ -84,18 +83,18 @@ def logout():
 @app.route('/travel_planner')
 def travel_planner():
     """
-    TODO
-    route requires GET and POST methods
-    Maybe add in code - request.form.get
-    
     specific_user = mongo.db.user.find_one({'_id': ObjectId(country_id)})
     specific_country = mongo.db.country.find_one({'username': specific_user['username']})
     """
-
     if 'username' not in session:
         flash('Please sign in to add to your planner')
         return render_template('base.html')
     flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
+
+    specific_user = mongo.db.user.find_one()
+
+    if specific_user:
+        print(session['username'])
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
@@ -106,30 +105,33 @@ def current_country(country_id):
 
 @app.route('/add_country')
 def add_country():
-    return render_template('addcount.html', country=countries, hotel=hotels)
+    return render_template('addcount.html', country=countries, hotel=hotels, user=mongo.db.user.find())
 
 @app.route('/confirm_country', methods=['POST'])
 def confirm_country():
+    specific_user = mongo.db.user
     the_country = mongo.db.country
     the_hotel = mongo.db.hotel
-    the_country.insert_many([
-        {
-            'country_name':request.form.get('country_name'),
-            'travel_to_date':request.form.get('travel_to_date'),
-            'travel_from_date':request.form.get('travel_from_date'),
-            'flight_time_to':request.form.get('flight_time_to'),
-            'flight_time_from':request.form.get('flight_time_from'),
-            'todo_done':request.form.get('todo_done'),
-            'blog':request.form.get('blog'),
-            'rating':request.form.get('rating')
-        }])
-    the_hotel.insert_many([
-        {
-            'country_name':request.form.get('country_name'),
-            'hotel_name':request.form.get('hotel_name'),
-            'hotel_address':request.form.get('hotel_address'),
-            'hotel_postcode':request.form.get('hotel_postcode')
-        }])
+    if specific_user:
+        the_country.insert_many([
+            {
+                'username': session['username'],
+                'country_name':request.form.get('country_name'),
+                'travel_to_date':request.form.get('travel_to_date'),
+                'travel_from_date':request.form.get('travel_from_date'),
+                'flight_time_to':request.form.get('flight_time_to'),
+                'flight_time_from':request.form.get('flight_time_from'),
+                'todo_done':request.form.get('todo_done'),
+                'blog':request.form.get('blog'),
+                'rating':request.form.get('rating')
+            }])
+        the_hotel.insert_many([
+            {
+                'country_name':request.form.get('country_name'),
+                'hotel_name':request.form.get('hotel_name'),
+                'hotel_address':request.form.get('hotel_address'),
+                'hotel_postcode':request.form.get('hotel_postcode')
+            }])
     return redirect(url_for('travel_planner'))
 
 @app.route('/edit_country/<country_id>')
