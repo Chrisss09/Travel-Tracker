@@ -138,31 +138,34 @@ def confirm_country():
 def edit_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel)
+    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
 def update_count(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
+    specific_user = mongo.db.user.find_one()
     update_country = mongo.db.country
     update_hotel = mongo.db.hotel
-    update_country.update({'_id': ObjectId(country_id)},
-        {
-            'country_name':request.form.get('country_name'),
-            'travel_to_date':request.form.get('travel_to_date'),
-            'travel_from_date':request.form.get('travel_from_date'),
-            'flight_time_to':request.form.get('flight_time_to'),
-            'flight_time_from':request.form.get('flight_time_from'),
-            'todo_done':request.form.get('todo_done'),
-            'blog':request.form.get('blog'),
-            'rating':request.form.get('rating')
-        })
-    update_hotel.update({'country_name': specific_country['country_name']},
-        {
-            'country_name':request.form.get('country_name'),
-            'hotel_name':request.form.get('hotel_name'),
-            'hotel_address':request.form.get('hotel_address'),
-            'hotel_postcode':request.form.get('hotel_postcode')
-        })
+    if specific_user:
+        update_country.update({'_id': ObjectId(country_id)},
+            {
+                'username': session['username'],
+                'country_name':request.form.get('country_name'),
+                'travel_to_date':request.form.get('travel_to_date'),
+                'travel_from_date':request.form.get('travel_from_date'),
+                'flight_time_to':request.form.get('flight_time_to'),
+                'flight_time_from':request.form.get('flight_time_from'),
+                'todo_done':request.form.get('todo_done'),
+                'blog':request.form.get('blog'),
+                'rating':request.form.get('rating')
+            })
+        update_hotel.update({'country_name': specific_country['country_name']},
+            {
+                'country_name':request.form.get('country_name'),
+                'hotel_name':request.form.get('hotel_name'),
+                'hotel_address':request.form.get('hotel_address'),
+                'hotel_postcode':request.form.get('hotel_postcode')
+            })
     return redirect(url_for('travel_planner'))
 
 @app.route('/delete_country/<country_id>')
