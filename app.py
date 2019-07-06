@@ -82,30 +82,27 @@ def logout():
 
 @app.route('/travel_planner')
 def travel_planner():
-    """
-    specific_user = mongo.db.user.find_one({'_id': ObjectId(country_id)})
-    specific_country = mongo.db.country.find_one({'username': specific_user['username']})
-    """
     if 'username' not in session:
         flash('Please sign in to add to your planner')
         return render_template('base.html')
     flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
 
-    specific_user = mongo.db.user.find_one()
+    #specific_user = mongo.db.user.find_one()
 
-    if specific_user:
-        print(session['username'])
+    # if specific_user:
+    #     print(session['username'])
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    return render_template('country.html', specific_country=specific_country, specific_hotel=specific_hotel)
+    user_rating = mongo.db.rating.find()
+    return render_template('country.html', specific_country=specific_country, specific_hotel=specific_hotel, user_rating=user_rating)
 
 @app.route('/add_country')
 def add_country():
-    return render_template('addcount.html', country=countries, hotel=hotels, user=mongo.db.user.find())
+    return render_template('addcount.html', country=countries, hotel=hotels, user=mongo.db.user.find(), rating=mongo.db.rating.find())
 
 @app.route('/confirm_country', methods=['POST'])
 def confirm_country():
@@ -123,7 +120,7 @@ def confirm_country():
                 'flight_time_from':request.form.get('flight_time_from'),
                 'todo_done':request.form.get('todo_done'),
                 'blog':request.form.get('blog'),
-                'rating':request.form.get('rating')
+                'rating_cat':request.form.get('rating_cat')
             }])
         the_hotel.insert_many([
             {
@@ -138,12 +135,16 @@ def confirm_country():
 def edit_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find())
+    specific_user = mongo.db.user.find_one()
+    if specific_user:
+        print(session['username'])
+
+    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find(), rating=mongo.db.rating.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
 def update_count(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    specific_user = mongo.db.user.find_one()
+    specific_user = mongo.db.user
     update_country = mongo.db.country
     update_hotel = mongo.db.hotel
     if specific_user:
@@ -157,7 +158,7 @@ def update_count(country_id):
                 'flight_time_from':request.form.get('flight_time_from'),
                 'todo_done':request.form.get('todo_done'),
                 'blog':request.form.get('blog'),
-                'rating':request.form.get('rating')
+                'rating_cat':request.form.get('rating_cat')
             })
         update_hotel.update({'country_name': specific_country['country_name']},
             {
