@@ -6,7 +6,7 @@ import folium
 from folium import plugins
 from folium.plugins import MeasureControl
 import requests
-import pandas as pd
+import pandas
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 
@@ -37,6 +37,16 @@ plugins.Fullscreen(
     force_separate_button=True
 ).add_to(map_obj)
 #map_obj.save('templates/travelmap.html')
+
+fgc = folium.FeatureGroup(name="Top 10 countries to visit")
+fgr = folium.FeatureGroup(name="Top 10 restaurants of the world")
+fga = folium.FeatureGroup(name="Top 10 attractions in the world")
+
+map_obj.add_child(fgc)
+map_obj.add_child(fgr)
+map_obj.add_child(fga)
+map_obj.add_child(folium.LayerControl())
+
 map_obj.save(os.path.join('templates/travelmap.html'))
 
 @app.route('/')
@@ -91,7 +101,7 @@ def travel_planner():
 
     # if specific_user:
     #     print(session['username'])
-    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find(), user=mongo.db.user.find())
+    return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
@@ -133,11 +143,13 @@ def confirm_country():
 
 @app.route('/edit_country/<country_id>')
 def edit_country(country_id):
-    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
     specific_user = mongo.db.user.find_one()
     if specific_user:
-        print(session['username'])
+        specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
+        specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
+    print('You have clicked on another user')
+    # if specific_user:
+    #     print(session['username'])
 
     return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find(), rating=mongo.db.rating.find())
 
@@ -180,22 +192,40 @@ def delete_country(country_id):
 
 @app.route('/my_map')
 def my_map():
-    #global map_obj
+    # global map_obj
+    # map_obj.add_child(folium.LayerControl())
     return map_obj.get_root().render()
 
 @app.route('/travel_map')
 def travel_map():
-    #global map_obj
 
-    # Adding country name from DB and adding a marker to map
-    f_g = folium.FeatureGroup(name="travel_map")
-    for count in countries:
-        d_f = pd.DataFrame({'name': count['country_name']}, index=[0])
-        geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
-        d_f['location'] = d_f['name'].apply(geocode)
-        d_f['point'] = d_f['location'].apply(lambda loc: tuple(loc.point) if loc else None)
-        f_g.add_child(folium.Marker(location=d_f['point'][0][:-1], popup=count['country_name'], icon=folium.Icon(color='purple')))
-        map_obj.add_child(f_g)
+    top_count_data = pandas.read_csv('static/data/toptencount.txt')
+    lat = list(top_count_data['LAT'])
+    lon = list(top_count_data['LON'])
+    count = list(top_count_data['COUNTRYNAME'])
+
+    top_rest_data = pandas.read_csv('static/data/restaurants.txt')
+    lati = list(top_rest_data['LAT'])
+    loni = list(top_rest_data['LON'])
+    countr = list(top_rest_data['COUNTRYNAME'])
+    rest = list(top_rest_data['RESTAURANT'])
+
+    top_attrac_data = pandas.read_csv('static/data/attractions.txt')
+    latit = list(top_attrac_data['LAT'])
+    longi = list(top_attrac_data['LON'])
+    countn = list(top_attrac_data['COUNTRYNAME'])
+    attrac = list(top_attrac_data['ATTRACTION'])
+
+    for lt, ln, ct in zip(lat, lon, count):
+        fgc.add_child(folium.Marker(location=(lt, ln), popup=ct, icon=folium.Icon(color='purple')))
+
+    for lt, ln, ct, rt in zip(lati, loni, countr, rest):
+        fgr.add_child(folium.Marker(location=(lt, ln), popup=rt, icon=folium.Icon(color='red')))
+
+    for lt, ln, ct, atr in zip(latit, longi, countn, attrac):
+        fga.add_child(folium.Marker(location=(lt, ln), popup=atr, icon=folium.Icon(color='blue')))
+
+    
     return render_template('map.html')
 
 if __name__ == '__main__':
