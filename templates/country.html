@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container text-center">
-    <div class="row">
+<div class="container text-center card">
+    <div class="row card-header">
         <div class="col-12">
-            <h1 class="display-1">
-                <strong>{{ specific_country.country_name }}</strong>
-            </h1>
+            <h1 class="display-1"><strong>{{ specific_country.country_name }}</strong></h1>
+            <h6>Added by {{ specific_country.username }}</h6>
         </div>
     </div>
     <br>
@@ -48,11 +47,11 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-sm-4">
-            <h3>Key notes:</h3>
-        </div>
-        <div class="col-sm-12 justify-left">
-            <p>{{ specific_country.blog }}</p>
+        <div class="col-sm-12">
+            <div class="card-body">
+                <h5 class="card-title">User Review:</h5>
+                <p class="card-text">{{ specific_country.blog }}</p>
+            </div>
         </div>
     </div>
     <br>

@@ -5,13 +5,9 @@ from bson.objectid import ObjectId
 import folium
 from folium import plugins
 from folium.plugins import MeasureControl
-import requests
 import pandas
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
 
 app = Flask(__name__)
-geolocator = Nominatim(user_agent="Travel Tracker")
 app.config["SECRET_KEY"] = '_u8okxni0bWuLx21J1tCDQ'
 app.config["MONGO_DBNAME"] = 'travel_tracker'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
@@ -193,7 +189,6 @@ def delete_country(country_id):
 @app.route('/my_map')
 def my_map():
     # global map_obj
-    # map_obj.add_child(folium.LayerControl())
     return map_obj.get_root().render()
 
 @app.route('/travel_map')
