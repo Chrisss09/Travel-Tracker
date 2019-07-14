@@ -179,10 +179,14 @@ def update_count(country_id):
 @app.route('/delete_country/<country_id>')
 def delete_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    del_country = mongo.db.country
-    del_hotel = mongo.db.hotel
-    del_country.remove({'_id': ObjectId(country_id)})
-    del_hotel.remove({'country_name': specific_country['country_name']})
+    specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+    if specific_user['username'] == session['username']:
+        del_country = mongo.db.country
+        del_hotel = mongo.db.hotel
+        del_country.remove({'_id': ObjectId(country_id)})
+        del_hotel.remove({'country_name': specific_country['country_name']})
+    print('You cannot edit another users info')
+
     return redirect(url_for('travel_planner'))
 
 @app.route('/my_map')
