@@ -91,12 +91,8 @@ def travel_planner():
     if 'username' not in session:
         flash('Please sign in to add to your planner')
         return render_template('base.html')
-    flash('Welcome ' + session['username'] + ', enjoy and plan your traveling here.')
+    flash('Welcome ' + session['username'] + ', plan and share your journey here.')
 
-    #specific_user = mongo.db.user.find_one()
-
-    # if specific_user:
-    #     print(session['username'])
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
@@ -144,7 +140,7 @@ def edit_country(country_id):
     specific_user = mongo.db.user.find_one({'username': specific_country['username']})
 
     if specific_user['username'] != session['username']:
-        print('You cannot edit another users info')
+        flash('You cannot edit another users post')
         return redirect(url_for('travel_planner'))
     return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find(), rating=mongo.db.rating.find())
 
@@ -185,7 +181,8 @@ def delete_country(country_id):
         del_hotel = mongo.db.hotel
         del_country.remove({'_id': ObjectId(country_id)})
         del_hotel.remove({'country_name': specific_country['country_name']})
-    print('You cannot edit another users info')
+    else:
+        flash('You cannot delete another users post')
 
     return redirect(url_for('travel_planner'))
 

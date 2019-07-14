@@ -13,13 +13,6 @@
     {% endwith %}
 </div>
 
-<!-- {% for message in get_flashed_messages() %}
-<div class="alert alert-warning">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    {{ message }}
-</div>
-{% endfor %} -->
-
 {% for count in country %}
 <div class="card text-center">
     <div class="card-header">
@@ -38,6 +31,12 @@
     </div>
 </div>
 {% endfor %}
+<!-- {% for message in get_flashed_messages() %}
+<div class="alert alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ message }}
+</div>
+{% endfor %} -->
 <br>
 <div class="col-sm-4 ml-auto" style="margin-bottom: 5px;">
     <a href="{{ url_for('add_country') }}" class="btn btn-primary">Add to planner</a>
