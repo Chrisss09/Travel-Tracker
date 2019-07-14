@@ -32,8 +32,8 @@ plugins.Fullscreen(
     title_cancel='Exit me',
     force_separate_button=True
 ).add_to(map_obj)
-#map_obj.save('templates/travelmap.html')
 
+# Adding data to map
 fgc = folium.FeatureGroup(name="Top 10 countries to visit")
 fgr = folium.FeatureGroup(name="Top 10 restaurants of the world")
 fga = folium.FeatureGroup(name="Top 10 attractions in the world")
@@ -139,14 +139,13 @@ def confirm_country():
 
 @app.route('/edit_country/<country_id>')
 def edit_country(country_id):
-    specific_user = mongo.db.user.find_one()
-    if specific_user:
-        specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-        specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    print('You have clicked on another user')
-    # if specific_user:
-    #     print(session['username'])
+    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
+    specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
+    specific_user = mongo.db.user.find_one({'username': specific_country['username']})
 
+    if specific_user['username'] != session['username']:
+        print('You cannot edit another users info')
+        return redirect(url_for('travel_planner'))
     return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find(), rating=mongo.db.rating.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
@@ -215,7 +214,7 @@ def travel_map():
         fgc.add_child(folium.Marker(location=(lt, ln), popup=ct, icon=folium.Icon(color='purple')))
 
     for lt, ln, ct, rt in zip(lati, loni, countr, rest):
-        fgr.add_child(folium.Marker(location=(lt, ln), popup=rt, icon=folium.Icon(color='red')))
+        fgr.add_child(folium.Marker(location=(lt, ln), popup=rt, icon=folium.Icon(color='gray')))
 
     for lt, ln, ct, atr in zip(latit, longi, countn, attrac):
         fga.add_child(folium.Marker(location=(lt, ln), popup=atr, icon=folium.Icon(color='blue')))
