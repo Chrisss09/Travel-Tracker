@@ -21,11 +21,14 @@ nav, .log-btn {
     color: #FFF1E3;
 }
 
-/* @media only screen and (max-width:1199px) {
-    .carousel-caption h5 {
-        font-size: 42px;
-    }
-} */
+.startup-info {
+    padding: 2% 2%;
+}
+
+.startup-info img {
+    width: 150px;
+    height: 150px;
+}
 
 @media only screen and (max-width:630px) {
     .carousel-caption h5 {
@@ -75,5 +78,4 @@ nav, .log-btn {
     }
 }
 
-/* @media only screen and (max-width:767px) {} */
 
