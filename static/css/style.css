@@ -20,3 +20,60 @@ nav, .log-btn {
     font-size: 24px;
     color: #FFF1E3;
 }
+
+/* @media only screen and (max-width:1199px) {
+    .carousel-caption h5 {
+        font-size: 42px;
+    }
+} */
+
+@media only screen and (max-width:630px) {
+    .carousel-caption h5 {
+        font-size: 35px;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    .carousel-caption h5 {
+        font-size: 30px;
+    }
+    .carousel-caption {
+        padding-bottom: 9%;
+    }
+}
+
+@media only screen and (max-width:470px) {
+    .carousel-caption p {
+        font-size: 18px;
+    }
+    .carousel-caption {
+        padding-bottom: 5%;
+    }
+}
+
+@media only screen and (max-width:380px) {
+    .carousel-caption h5 {
+        font-size: 20px;
+    }
+    .carousel-caption p {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width:245px) {
+    .carousel-caption h5 {
+        font-size: 10px;
+    }
+    .carousel-caption p {
+        font-size: 5px;
+    }
+    .card p {
+        font-size: 10px;
+    }
+    .card h2 {
+        font-size: 20px;
+    }
+}
+
+/* @media only screen and (max-width:767px) {} */
+

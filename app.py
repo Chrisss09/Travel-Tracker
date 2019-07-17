@@ -215,10 +215,10 @@ def travel_map():
         fgc.add_child(folium.Marker(location=(lt, ln), popup=ct, icon=folium.Icon(color='purple')))
 
     for lt, ln, ct, rt in zip(lati, loni, countr, rest):
-        fgr.add_child(folium.Marker(location=(lt, ln), popup=rt, icon=folium.Icon(color='gray')))
+        fgr.add_child(folium.Marker(location=(lt, ln), popup=rt + '\n in ' + ct, icon=folium.Icon(color='gray')))
 
     for lt, ln, ct, atr in zip(latit, longi, countn, attrac):
-        fga.add_child(folium.Marker(location=(lt, ln), popup=atr, icon=folium.Icon(color='blue')))
+        fga.add_child(folium.Marker(location=(lt, ln), popup=atr + '\n in ' + ct, icon=folium.Icon(color='blue')))
 
     
     return render_template('map.html')
