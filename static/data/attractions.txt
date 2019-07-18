@@ -1,0 +1,11 @@
+COUNTRYNAME,ATTRACTION,LAT,LON
+Australia,The Great Barrier Reef,-17.998775,146.833247
+England,Stonehenge,51.179090,-1.826215
+USA,Antelope Canyon,36.866255,-111.374464
+Chile,Easter Island,-27.102727,-109.349814
+China,Reed Flute Caves,25.304739,110.273657
+China,The Great Wall of China,40.432112,116.570343
+Croatia,Plitvice Lakes National Park,44.865366,15.582119
+USA,Yellowstone National Park,44.418907,-110.559491
+French Polynesia,Bora Bora,-16.487451,-151.743610
+Italy,Venice,45.446587,12.314148

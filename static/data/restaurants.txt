@@ -1,0 +1,11 @@
+COUNTRYNAME,RESTAURANT,LAT,LON
+SPAIN,El Celler de Can Roca,41.993379,2.808014
+Denmark,Noma,55.682831,12.610481
+Italy,Osteria Francescana,44.644834,10.921611
+Spain,Mugaritz,43.272303,-1.917130
+USA,Eleven Madison Park Restaurant,40.741640,-73.987177
+Italy,D.O.M.,-23.566314,-46.667426
+England,Dinner by Heston Blumenthal,51.502165,-0.159843
+Spain,Arzak,43.321573,-1.948873
+Austria,Restaurant Steirereck,48.204506,16.381911
+Germany,Vendome,50.966385,7.161262
