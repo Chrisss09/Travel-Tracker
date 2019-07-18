@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_f8fbbfefa89d4e35b76634221511942a {
+                #map_7f796cded01e4b09b44b444146da82d1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -41,13 +41,13 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_f8fbbfefa89d4e35b76634221511942a" ></div>
+            <div class="folium-map" id="map_7f796cded01e4b09b44b444146da82d1" ></div>
         
 </body>
 <script>    
     
-            var map_f8fbbfefa89d4e35b76634221511942a = L.map(
-                "map_f8fbbfefa89d4e35b76634221511942a",
+            var map_7f796cded01e4b09b44b444146da82d1 = L.map(
+                "map_7f796cded01e4b09b44b444146da82d1",
                 {
                     center: [45.0, 3.0],
                     crs: L.CRS.EPSG3857,
@@ -61,25 +61,57 @@
 
         
     
-            var tile_layer_9efbd62924c54ed48377165d6b5f8ecb = L.tileLayer(
+            var tile_layer_fac34ecf6f02440397563da16b3453c3 = L.tileLayer(
                 "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
                 {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_f8fbbfefa89d4e35b76634221511942a);
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
         
     
-            var locate_control_49807b44f0d54573bd39460849edf92e = L.control.locate(
+            var locate_control_b0b79b955df349db820d9dd0197dfa57 = L.control.locate(
                 {}
-            ).addTo(map_f8fbbfefa89d4e35b76634221511942a);
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
         
     
-            var measure_control_4154bd555aa54ee38b54f284e633ed24 = new L.Control.Measure(
+            var measure_control_ef8b8907045d4c3ea9bd8fa4ad662e24 = new L.Control.Measure(
                 {"position": "topright", "primaryAreaUnit": "sqmeters", "primaryLengthUnit": "meters", "secondaryAreaUnit": "acres", "secondaryLengthUnit": "miles"});
-            map_f8fbbfefa89d4e35b76634221511942a.addControl(measure_control_4154bd555aa54ee38b54f284e633ed24);
+            map_7f796cded01e4b09b44b444146da82d1.addControl(measure_control_ef8b8907045d4c3ea9bd8fa4ad662e24);
 
         
     
             L.control.fullscreen(
                 {"forceSeparateButton": true, "position": "topright", "title": "Expand me", "titleCancel": "Exit me"}
-            ).addTo(map_f8fbbfefa89d4e35b76634221511942a);
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
+        
+    
+            var feature_group_971eadc90d6144ae8a934629e4adbf8c = L.featureGroup(
+                {}
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
+        
+    
+            var feature_group_ce7695f41ce8446c9ade1706c38d7678 = L.featureGroup(
+                {}
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
+        
+    
+            var feature_group_a5353b1094a84c31879d6969c4a2aa1a = L.featureGroup(
+                {}
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
+        
+    
+            var layer_control_f6ec10d836db4891b01700359d5a027c = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_fac34ecf6f02440397563da16b3453c3,
+                },
+                overlays :  {
+                    "Top 10 countries to visit" : feature_group_971eadc90d6144ae8a934629e4adbf8c,
+                    "Top 10 restaurants of the world" : feature_group_ce7695f41ce8446c9ade1706c38d7678,
+                    "Top 10 attractions in the world" : feature_group_a5353b1094a84c31879d6969c4a2aa1a,
+                },
+            };
+            L.control.layers(
+                layer_control_f6ec10d836db4891b01700359d5a027c.base_layers,
+                layer_control_f6ec10d836db4891b01700359d5a027c.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_7f796cded01e4b09b44b444146da82d1);
         
 </script>

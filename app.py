@@ -79,6 +79,9 @@ def register():
             return redirect(url_for('travel_planner'))
         flash("That username already exists")
 
+    if 'username' in session:
+        return redirect(url_for('travel_planner'))
+
     return render_template('register.html')
 
 @app.route('/logout')
@@ -99,12 +102,11 @@ def travel_planner():
 def current_country(country_id):
     specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    user_rating = mongo.db.rating.find()
-    return render_template('country.html', specific_country=specific_country, specific_hotel=specific_hotel, user_rating=user_rating)
+    return render_template('country.html', specific_country=specific_country, specific_hotel=specific_hotel)
 
 @app.route('/add_country')
 def add_country():
-    return render_template('addcount.html', country=countries, hotel=hotels, user=mongo.db.user.find(), rating=mongo.db.rating.find())
+    return render_template('addcount.html', country=countries, hotel=hotels, rating=mongo.db.rating.find())
 
 @app.route('/confirm_country', methods=['POST'])
 def confirm_country():
@@ -142,7 +144,7 @@ def edit_country(country_id):
     if specific_user['username'] != session['username']:
         flash('You cannot edit another users post')
         return redirect(url_for('travel_planner'))
-    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, user=mongo.db.user.find(), rating=mongo.db.rating.find())
+    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, rating=mongo.db.rating.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
 def update_count(country_id):
@@ -188,7 +190,6 @@ def delete_country(country_id):
 
 @app.route('/my_map')
 def my_map():
-    # global map_obj
     return map_obj.get_root().render()
 
 @app.route('/travel_map')
