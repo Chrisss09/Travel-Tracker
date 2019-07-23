@@ -71,3 +71,7 @@ nav, .log-btn {
         font-size: 15px;
     }
 }
+
+.btn-primary {
+    margin-bottom: 10px;
+}
