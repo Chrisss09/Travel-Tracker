@@ -39,9 +39,9 @@
         </div>
     </nav>
     {% block content %}
-    <div class="card">
+    <div class="col-sm-12 card">
         {% for message in get_flashed_messages() %}
-        <div class="card-header mx-auto d-block">
+        <div class="card-header text-center">
             <h5>{{message}}</h5>
         </div>
         {% endfor %}
