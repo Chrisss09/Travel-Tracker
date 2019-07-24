@@ -80,3 +80,8 @@ nav, .log-btn {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.worldmap {
+    height: 800px;
+    width: 100%;
+}
