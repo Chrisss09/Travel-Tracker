@@ -2,8 +2,6 @@
 
 ## **UX**
 
----
-
 ## **Features**
 
 ### Future additions
