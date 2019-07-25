@@ -8,63 +8,63 @@
 <form action="{{ url_for('update_count', country_id=specific_country._id) }}" method="POST" class="col-sm-12 card">
     <div class="form-row">
         <div class="form-group col-md-12">
-            <label for="inputEmail4"><h2>Country:</h2></label>
+            <label for="inputEmail4"><h4>Country:</h4></label>
             <input type="textarea" value="{{ specific_country.country_name }}" class="form-control form-control-lg" id="country_name" name="country_name" placeholder="country">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-6">
-            <label for="inputEmail4"><h2>Travel to date:</h2></label>
+            <label for="inputEmail4"><h4>Travel to date:</h4></label>
             <input type="textarea" value="{{ specific_country.travel_to_date }}" class="form-control" id="travel_to_date" name="travel_to_date" placeholder="Travel to date">
         </div>
         <div class="form-group col-sm-6">
-            <label for="inputAddress2"><h2>Travel back date:</h2></label>
+            <label for="inputAddress2"><h4>Travel back date:</h4></label>
             <input type="textarea" value="{{ specific_country.travel_from_date }}" class="form-control" id="travel_from_date" name="travel_from_date" placeholder="Travel date">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-6">
-            <label for="inputAddress"><h2>Flight time to:</h2></label>
+            <label for="inputAddress"><h4>Flight time to:</h4></label>
             <input type="textarea" value="{{ specific_country.flight_time_to }}" class="form-control" id="flight_time_to" name="flight_time_to" placeholder="Travel time from">
         </div>
         <div class="form-group col-sm-6">
-            <label for="inputAddress2"><h2>Flight time back:</h2></label>
+            <label for="inputAddress2"><h4>Flight time back:</h4></label>
             <input type="textarea" value="{{ specific_country.flight_time_from }}" class="form-control" id="flight_time_from" name="flight_time_from" placeholder="Flight time from">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-12">
-            <label for="inputAddress2"><h2>Hotel:</h2></label>
+            <label for="inputAddress2"><h4>Hotel:</h4></label>
             <input type="textarea" value="{{ specific_hotel.hotel_name }}" class="form-control" id="hotel_name" name="hotel_name" placeholder="Name of hotel">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-12">
-            <label for="inputAddress"><h2>Address:</h2></label>
+            <label for="inputAddress"><h4>Address:</h4></label>
             <input type="textarea" value="{{ specific_hotel.hotel_address }}" class="form-control" id="hotel_address" name="hotel_address" placeholder="Hotel address">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-2">
-            <label for="inputAddress"><h2>Postcode:</h2></label>
+            <label for="inputAddress"><h4>Postcode:</h4></label>
             <input type="textarea" value="{{ specific_hotel.hotel_postcode }}" class="form-control" id="hotel_postcode" name="hotel_postcode" placeholder="Hotel postcode">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-12">
-            <label for="inputAddress2"><h2>Review:</h2></label>
+            <label for="inputAddress2"><h4>Review:</h4></label>
             <input type="textarea" value="{{ specific_country.blog }}" class="form-control" id="blog" name="blog" placeholder="Write your review here...">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-12">
-            <label for="inputAddress"><h2>Key Points:</h2></label>
+            <label for="inputAddress"><h4>Key Points:</h4></label>
             <input type="textarea" value="{{ specific_country.todo_done }}" class="form-control" id="todo_done" name="todo_done" placeholder="Key Points">
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-sm-6">
-            <label><h2>User Rating:</h2></label>
+            <label><h4>User Rating:</h4></label>
             <select id="rating" name="rating_cat">
                 <option value="" disabled selected>Rating</option>
                 {% for rate in rating %}
@@ -78,7 +78,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary mr-auto">Save</button>
         <a href="{{ url_for('travel_planner') }}" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
     </div>
     <br>
