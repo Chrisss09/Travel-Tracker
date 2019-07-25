@@ -30,6 +30,22 @@ nav, .log-btn {
     height: 150px;
 }
 
+.btn-primary {
+    margin-bottom: 10px;
+}
+
+.main-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.worldmap {
+    display: block;
+    border: none;
+    height: 80vh;
+    width: 100%;
+}
+
 @media only screen and (max-width:630px) {
     .carousel-caption h5 {
         font-size: 35px;
@@ -70,20 +86,8 @@ nav, .log-btn {
     .card h2 {
         font-size: 15px;
     }
-}
-
-.btn-primary {
-    margin-bottom: 10px;
-}
-
-.main-card {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.worldmap {
-    display: block;
-    border: none;
-    height: 100vh;
-    width: 100%;
+    .startup-info img {
+        width: 110px;
+        height: 110px;
+    }
 }
