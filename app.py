@@ -8,7 +8,7 @@ from folium.plugins import MeasureControl
 import pandas
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
+app.config["SECRET_KEY"] = 'SECRET_KEY'
 app.config["MONGO_DBNAME"] = 'travel_tracker'
 app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
