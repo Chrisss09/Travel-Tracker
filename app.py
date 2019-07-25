@@ -63,9 +63,7 @@ def login():
 
     if 'username' in session:
         return redirect(url_for('travel_planner'))
-
     return render_template('login.html')
-
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -81,7 +79,6 @@ def register():
 
     if 'username' in session:
         return redirect(url_for('travel_planner'))
-
     return render_template('register.html')
 
 @app.route('/logout')
@@ -95,7 +92,6 @@ def travel_planner():
         flash('Please sign in to add to your planner')
         return render_template('base.html')
     flash('Welcome ' + session['username'] + ', plan and share your journey here.')
-
     return render_template('planner.html', country=mongo.db.country.find(), hotel=mongo.db.hotel.find())
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
@@ -185,7 +181,6 @@ def delete_country(country_id):
         del_hotel.remove({'country_name': specific_country['country_name']})
     else:
         flash('You cannot delete another users post')
-
     return redirect(url_for('travel_planner'))
 
 @app.route('/my_map')
@@ -194,7 +189,6 @@ def my_map():
 
 @app.route('/travel_map')
 def travel_map():
-
     top_count_data = pandas.read_csv('static/data/toptencount.txt')
     lat = list(top_count_data['LAT'])
     lon = list(top_count_data['LON'])
@@ -220,11 +214,9 @@ def travel_map():
 
     for lt, ln, ct, atr in zip(latit, longi, countn, attrac):
         fga.add_child(folium.Marker(location=(lt, ln), popup=atr + '\n in ' + ct, icon=folium.Icon(color='blue')))
-
-    
     return render_template('map.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 5000)),
-            debug=False)
+            debug=True)
