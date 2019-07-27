@@ -90,7 +90,8 @@
         <div class="col-sm-12">
             <div class="row text-justify lead card-body">
                 <p>It is not just a holiday tracker, you can share your experiences with other users.
-                    By just logging in you can create your review for other users to see.</p>
+                    By just logging in you can create your review for other users to see.
+                </p>
                 <p>If you love a particular country, log it here.
                 If you love a particular hotel, log it here.
                 If you find some amazing attractions, just log it here.</p>
@@ -124,34 +125,34 @@
 </section>
 
 <section class="startup-info container main-card">
-    <div class="col-12 card">
-        <div class="row card-header col-12">
+    <div class="col-sm-12 card">
+        <div class="row card-header">
             <h2>Getting started</h2>
         </div>
-    </div>
-    <div class="row col-12">
-        <div class="card col-sm-4 col-12" style="width: 18rem;">
-            <img src="{{ url_for('static', filename='images/login-icon.gif') }}" class="card-img-top" alt="User register">
-            <div class="card-body">
-                <h5 class="card-title">Login</h5>
-                <p class="card-text">Click here and register to get you started.</p>
-                <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
+        <div class="row">
+            <div class="card col-sm-4 col-12" style="width: 18rem;">
+                <img src="{{ url_for('static', filename='images/login-icon.gif') }}" class="card-img-top" alt="User register">
+                <div class="card-body">
+                    <h5 class="card-title">Login</h5>
+                    <p class="card-text">Click here and register to get you started.</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
+                </div>
             </div>
-        </div>
-        <div class="card col-sm-4 col-12" style="width: 18rem;">
-            <img src="{{ url_for('static', filename='images/map-clipart-4.png') }}" class="card-img-top" alt="Map">
-            <div class="card-body">
-                <h5 class="card-title">Map</h5>
-                <p class="card-text">Struggling where to go? Click here for the map.</p>
-                <a href="{{ url_for('travel_map') }}" class="btn btn-primary">Map</a>
+            <div class="card col-sm-4 col-12" style="width: 18rem;">
+                <img src="{{ url_for('static', filename='images/map-clipart-4.png') }}" class="card-img-top" alt="Map">
+                <div class="card-body">
+                    <h5 class="card-title">Map</h5>
+                    <p class="card-text">Struggling where to go? Click here for the map.</p>
+                    <a href="{{ url_for('travel_map') }}" class="btn btn-primary">Map</a>
+                </div>
             </div>
-        </div>
-        <div class="card col-sm-4 col-12" style="width: 18rem;">
-            <img src="{{ url_for('static', filename='images/planner.jpg') }}" class="card-img-top" alt="Planner">
-            <div class="card-body">
-                <h5 class="card-title">Start your plan</h5>
-                <p class="card-text">Sign in and view and share your experiences.</p>
-                <a href="{{ url_for('travel_planner') }}" class="btn btn-primary">Planner</a>
+            <div class="card col-sm-4 col-12" style="width: 18rem;">
+                <img src="{{ url_for('static', filename='images/planner.jpg') }}" class="card-img-top" alt="Planner">
+                <div class="card-body">
+                    <h5 class="card-title">Start your plan</h5>
+                    <p class="card-text">Sign in and view and share your experiences.</p>
+                    <a href="{{ url_for('travel_planner') }}" class="btn btn-primary">Planner</a>
+                </div>
             </div>
         </div>
     </div>
