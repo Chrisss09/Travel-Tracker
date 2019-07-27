@@ -42,6 +42,17 @@ This will come in handy for a user whilst they are planning a trip or out and ab
 
 ### Future additions
 
+At the time of writing this, it is at the end of this project, I have vizualised and planned this as I wanted it to look.
+
+There are some features that I had to find a plan B for that still worked really well and then building further ideas on to that for the future.
+
+My first example is when creating my map - I would like to replace this with Google Maps. I chose to create my map using Folium and I created an algorithum for when a user logs a country to their planner a marker would be added to the map. After I wrote the algoritham I found out that you cannot automatically update the map, so I needed to stop and start the script for updates to take effect, which is not advisable.
+My plan B was then to get some information off the internet and just add markers on the map plus add some features to my map.
+
+My website was originally going to be more of a planner where the user would have their own personal logs but due to time restraints I went for plan B and made my site more like a trip advisor site.
+
+In the future I would like my map to be made with Google Maps so a user can automatically add, edit and delete markers. Also I would still like the user review site but also add a personal planner profile page.
+
 ## **Technologies used**
 
 ## **Testing**
