@@ -39,7 +39,7 @@
         </div>
     </nav>
     {% block content %}
-    <div class="col-sm-12 card">
+    <div class="card">
         {% for message in get_flashed_messages() %}
         <div class="card-header text-center">
             <h5>{{message}}</h5>
