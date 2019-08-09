@@ -55,6 +55,17 @@ In the future I would like my map to be made with Google Maps so a user can auto
 
 ## **Technologies used**
 
+To create my app I have used a number of technologies which are the following:
+
+* Python
+  * To write my app I have used the Python programming language.
+
+* Flask
+  * To create my website I have used the Flask framework.
+
+* MongoDB
+  * The database I have chosen to use for the data side of this project is MongoDB to allow the user to use CRUD.
+
 ## **Testing**
 
 ## **Deployment**
