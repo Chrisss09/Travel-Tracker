@@ -69,6 +69,9 @@ To create my app I have used a number of technologies which are the following:
 * MongoDB
   * The database I have chosen to use for the data side of this project is MongoDB to allow the user to use CRUD.
 
+* Environment Variable - Python-dotenv
+  * To connect to MongoDB and also store my secret key I have used python-dotenv to create a dot env file and I have hidden this in my gitignore file. For the majority of the project I have stored my MongoDB connection link in my bashrc file to locally store my link but when I have deployed my site using Heroku I have installed python-dotenv and updated my requirements.txt file.
+
 * PyMongo
   * In my project I have installed PyMongo which helps me interact with my MongoDB database.
 
@@ -83,6 +86,12 @@ To create my app I have used a number of technologies which are the following:
 
 * Pandas
   * I have installed Pandas to my app so that I can display data on my Folium map.
+
+* Bootstrap
+  * To style and structure my website I have used Bootstrap so I could create grids and easily style and structure my work.
+
+* Bootstrap Carousel
+  * One of the things I planned to have on my site was to have an image slider so I used a Bootstrap one. After choosing my images from Google I found they were all different sizes, so I used a free site which was [pixlr.com](https://pixlr.com/editor/) after watching a Youtube video and I made them all the same size and they work effectively.
 
 ## **Testing**
 
