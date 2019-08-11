@@ -6,6 +6,8 @@ import folium
 from folium import plugins
 from folium.plugins import MeasureControl
 import pandas
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
