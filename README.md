@@ -57,6 +57,9 @@ In the future I would like my map to be made with Google Maps so a user can auto
 
 To create my app I have used a number of technologies which are the following:
 
+* Virtual Environment
+  * To setup my project I have used a virtual environment to install all the dependencies that I need to run my app.
+
 * Python
   * To write my app I have used the Python programming language.
 
@@ -65,6 +68,21 @@ To create my app I have used a number of technologies which are the following:
 
 * MongoDB
   * The database I have chosen to use for the data side of this project is MongoDB to allow the user to use CRUD.
+
+* PyMongo
+  * In my project I have installed PyMongo which helps me interact with my MongoDB database.
+
+* ObjectId
+  * I have used ObjectId so that I can interact with MongoDB's automatically generated ID key.
+
+* Folium
+  * I have installed Folium to create a free map to use with data visualisation.
+
+* Plugins and MeasureControl
+  * With Folium I have imported Plugins and MeasureControl for additional features on my map such as to track user's location, measure distances, and giving an option to the user so they can make the map full screen.
+
+* Pandas
+  * I have installed Pandas to my app so that I can display data on my Folium map.
 
 ## **Testing**
 
