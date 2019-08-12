@@ -97,7 +97,7 @@ To create my app I have used a number of technologies which are the following:
 
 Throughout my project I have done various testing on my code such as:
 
-To check connection between MongoDB and my server I opened up what was going to be my main planner page, and I added some basic HTML.
+To check connection between MongoDB and my server I opened up what was going to be my main planner page, and I added some basic HTML with my headings from my data.
 
 ```HTML
 {% for count in country %}
@@ -109,6 +109,22 @@ To check connection between MongoDB and my server I opened up what was going to 
     <p>{{ count.flight_time_from }}</p>
     <p>{{ count.rating_cat }}</p>
 {% endfor %}
+```
+
+To check my dotenv file was working with my secret key and my MongoDB connection, I typed out the following test in the CLI
+
+```npm
+>>> import dotenv
+>>> from dotenv import load_dotenv
+>>> load_dotenv()
+True
+
+>>> import os
+>>> os.getenv('SECRET_KEY')
+# This will show the actual secret key if successful
+
+>>> os.getenv('MONGO_URI')
+# This will show the connection link if successful
 ```
 
 Checking a user is logged in
