@@ -95,6 +95,29 @@ To create my app I have used a number of technologies which are the following:
 
 ## **Testing**
 
+Throughout my project I have done various testing on my code such as:
+
+To check connection between MongoDB and my server I opened up what was going to be my main planner page, and I added some basic HTML.
+
+```HTML
+{% for count in country %}
+    <p>{{ count.country_name }}<p>
+    <p>{{ count.username }}</p>
+    <p>{{ count.travel_to_date }}</p>
+    <p>{{ count.flight_time_to }}</p>
+    <p>{{ count.travel_from_date }}</p>
+    <p>{{ count.flight_time_from }}</p>
+    <p>{{ count.rating_cat }}</p>
+{% endfor %}
+```
+
+Checking a user is logged in
+
+```python
+if 'username' in session:
+    print('Welcome ' + session['username'] + ', you are already logged in')
+```
+
 ## **Deployment**
 
 ## **Credits**
