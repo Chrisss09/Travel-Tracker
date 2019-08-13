@@ -134,6 +134,84 @@ if 'username' in session:
     print('Welcome ' + session['username'] + ', you are already logged in')
 ```
 
+Testing the user's rights to use the CRUD feature of my app.
+
+I wanted to make my project have user rights by only being able to use CRUD if they are a member and to do this I started with being able to add a country once the user has filled out the form.
+
+First, to test how to pull the correct data up I created the following:
+
+```python
+specific_user = mongo.db.user
+if specific_user:
+    print('I am logged in')
+```
+
+The ```specific_user``` variable will look into my database and check if the user has been added and if so the message will get printed.
+
+So then I added the ```specific_user``` variable to my code as per below.
+
+```python
+specific_user = mongo.db.user
+the_country = mongo.db.country
+the_hotel = mongo.db.hotel
+if specific_user:
+    the_country.insert_many([
+        {
+            'country_name':request.form.get('country_name'),
+            'travel_to_date':request.form.get('travel_to_date'),
+            'travel_from_date':request.form.ge('travel_from_date'),
+            'flight_time_to':request.form.get('flight_time_to'),
+            'flight_time_from':request.form.get('flight_time_from'),
+            'todo_done':request.form.get('todo_done'),
+            'blog':request.form.get('blog'),
+            'rating_cat':request.form.get('rating_cat')
+        }])
+```
+
+I then came across another error where I would add a country but then the username would not get automatically printed on the post.
+
+So I came up with the following code to test how to do this:
+
+```python
+specific_user = mongo.db.user
+if specific_user:
+    print(session['username'])
+```
+
+This would then print a user whoever is signed in to the app, so for example I signed in as ```Chris09``` so this printed out ```Chris09``` and then I signed in as ```Dave10``` and then this printed out ```Dave10```. So now I knew how to automatically assign to a post so I added it to my insert code form like so:
+
+```python
+specific_user = mongo.db.user
+the_country = mongo.db.country
+the_hotel = mongo.db.hotel
+if specific_user:
+    the_country.insert_many([
+        {
+            'username': session['username'],
+            'country_name':request.form.get('country_name'),
+            'travel_to_date':request.form.get('travel_to_date'),
+            'travel_from_date':request.form.ge('travel_from_date'),
+            'flight_time_to':request.form.get('flight_time_to'),
+            'flight_time_from':request.form.get('flight_time_from'),
+            'todo_done':request.form.get('todo_done'),
+            'blog':request.form.get('blog'),
+            'rating_cat':request.form.get('rating_cat')
+        }])
+```
+
+I then tested the update route by updating a post and then I found another problem, whichever user edits the post the username name would change to theirs.
+
+To stop a user from editing another user's post I created the following:
+
+```python
+specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+
+    if specific_user['username'] != session['username']:
+        print('You cannot edit another users post')
+```
+
+I would then change ```print``` to ```flash``` and create a flash message which then solved my problem by not letting a user edit another user's post.
+
 ## **Deployment**
 
 ## **Credits**
