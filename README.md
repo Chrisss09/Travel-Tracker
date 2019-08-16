@@ -113,7 +113,7 @@ To check connection between MongoDB and my server I opened up what was going to 
 
 To check my dotenv file was working with my secret key and my MongoDB connection, I typed out the following test in the CLI
 
-```npm
+```bash
 >>> import dotenv
 >>> from dotenv import load_dotenv
 >>> load_dotenv()
@@ -232,6 +232,60 @@ if specific_user['username'] == session['username']:
 So if ```specific_user['username']``` is the same as ```session['username']``` this will allow you to delete your own post but if you are not, then an error message will prevent you from deleting another user's post.
 
 ## **Deployment**
+
+To deploy my project I used Heroku and for version control I used Git. I didn't deploy to Heroku until I was close to the end but all thoughout the project I kept updating my Github repository using Git and when I was close to finishing I deployed to Heroku and connected my Github repository and when I made changes to anything I could use Git to update both Github and Heroku at the same time.
+
+To setup and deploy to Heroku you will need to do several things to make it a success.
+
+Your root folder will need a ```requirements.txt``` file - This will specify dependancies needed for your python application.
+
+To install this file you will need to type in your terminal as follows:
+
+```bash
+$ pip install -r requirements.txt
+```
+
+Also if you install new dependancies you can simply update the ```requirements.txt``` by repeating the line.
+
+You will also need to install a ```Procfile``` - This will also need to be installed in your root folder and this will specify the commands that are executed by the app on startup. You can use a Procfile to declare a variety of process types, including:
+
+* Your app’s web server
+* Multiple types of worker processes
+* A singleton process, such as a clock
+* Tasks to run before a new release is deployed
+
+To install the ```Procfile``` all you are required to do is:
+
+```bash
+$ echo web: python app.py > Procfile
+```
+
+And then add:
+
+```bash
+$ heroku ps:scale web=1
+```
+
+By doing these commands you will then be able to use Git to add your work to your repository.
+
+Once you have installed these requirements you will then need to connect your app to Heroku by going onto your settings to your app and you will need to add all the connections inside the config vars.
+
+So connections such as your connection string to your MongoDB database is essential. Whether you have stored your connection in a .bashrc file or in a dotenv file you will need to add the variable name followed by the connection string, and this is the same for your secret key.
+
+You will need to add the key ```PORT``` and that will need setting to the value of ```5000``` and the ```IP``` key will need setting to the value of ```0.0.0.0```.
+
+Once the changes have been saved you should be ready to view your website on the internet. If something is wrong with the deployed app then you will get an error message which will tell you what has gone wrong.
+
+You can also run my code locally because I have used Git to add my whole project to my Github page, you can download my code to your computer and run it on your machine to view and edit the site.
+
+Once you have downloaded my code and you are running it on your IDE you can go to ```app.py``` and scroll down to the very bottom you can then change ```False``` to ```True``` as per the snippet below and then you can change the code and style to your own.
+
+```python
+if __name__ == '__main__':
+    app.run(host=os.environ.get('IP'),
+            port=int(os.environ.get('PORT', 5000)),
+            debug=False)
+```
 
 ## **Credits**
 
