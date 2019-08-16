@@ -17,6 +17,28 @@ The user will then be able to edit and delete their post but will not be able to
 
 I have also implemented a map for the user to use. This can track your location, measure distances. I have got some information off the internet and added it onto the map for data vizulisation. The user will be able to plan (if they wanted to) visit the top 10 restaurants, attractions, and countries in the world.
 
+Before I started my project I created wireframes using a software called Balsamiq.
+
+The first plan is my homepage - I wanted to create an image slider.
+
+![Homepage](static/images/homepage.PNG)
+
+This one is my login page
+
+![Login page](static/images/loginpage.PNG)
+
+Here I have created my planner page
+
+![Planner page](static/images/planner.PNG)
+
+Here I have created the review summary page
+
+![Review page](static/images/review.PNG)
+
+And here is a plan for my map
+
+![Map page](static/images/mapscreen.PNG)
+
 ## **Features**
 
 ### Existing features
