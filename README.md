@@ -170,7 +170,7 @@ if specific_user:
 
 I then came across another error where I would add a country but then the username would not get automatically printed on the post.
 
-So I came up with the following code to test how to do this:
+So after a while of testing I came up with the following code to test how to do this:
 
 ```python
 specific_user = mongo.db.user
@@ -178,25 +178,33 @@ if specific_user:
     print(session['username'])
 ```
 
-This would then print a user whoever is signed in to the app, so for example I signed in as ```Chris09``` so this printed out ```Chris09``` and then I signed in as ```Dave10``` and then this printed out ```Dave10```. So now I knew how to automatically assign to a post so I added it to my insert code form like so:
+This would then print a user whoever is signed in to the app, so for example I signed in as ```Chris09``` so this printed out ```Chris09``` and then I signed in as ```Dave10``` and then this printed out ```Dave10```. So now I know how to automatically assign to a post so I added it to my insert and update code form like so:
 
 ```python
+specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
 specific_user = mongo.db.user
-the_country = mongo.db.country
-the_hotel = mongo.db.hotel
+update_country = mongo.db.country
+update_hotel = mongo.db.hotel
 if specific_user:
-    the_country.insert_many([
+    update_country.update({'_id': ObjectId(country_id)},
         {
             'username': session['username'],
             'country_name':request.form.get('country_name'),
             'travel_to_date':request.form.get('travel_to_date'),
-            'travel_from_date':request.form.ge('travel_from_date'),
+            'travel_from_date':request.form.get('travel_from_date'),
             'flight_time_to':request.form.get('flight_time_to'),
             'flight_time_from':request.form.get('flight_time_from'),
             'todo_done':request.form.get('todo_done'),
             'blog':request.form.get('blog'),
             'rating_cat':request.form.get('rating_cat')
-        }])
+        })
+    update_hotel.update({'country_name': specific_country['country_name']},
+        {
+            'country_name':request.form.get('country_name'),
+            'hotel_name':request.form.get('hotel_name'),
+            'hotel_address':request.form.get('hotel_address'),
+            'hotel_postcode':request.form.get('hotel_postcode')
+        })
 ```
 
 I then tested the update route by updating a post and then I found another problem, whichever user edits the post the username name would change to theirs.
@@ -210,7 +218,18 @@ specific_user = mongo.db.user.find_one({'username': specific_country['username']
         print('You cannot edit another users post')
 ```
 
-I would then change ```print``` to ```flash``` and create a flash message which then solved my problem by not letting a user edit another user's post.
+I would then change ```print``` to ```flash``` and create a flash message which then solved my problem by not letting a user edit another user's post and returning them to the main post page.
+
+I then tried to implement the same for the delete route but I had to slightly change this.
+
+```python
+specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+
+if specific_user['username'] == session['username']:
+    print('You cannot delete another users post')
+```
+
+So if ```specific_user['username']``` is the same as ```session['username']``` this will allow you to delete your own post but if you are not, then an error message will prevent you from deleting another user's post.
 
 ## **Deployment**
 
