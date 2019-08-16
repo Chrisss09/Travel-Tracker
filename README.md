@@ -79,6 +79,9 @@ In the future I would like my map to be made with Google Maps so a user can auto
 
 To create my app I have used a number of technologies which are the following:
 
+* Balsamiqu
+  * To plan my project I used the software Balsamiqu as a recommendation from the Code Institute.
+
 * Virtual Environment
   * To setup my project I have used a virtual environment to install all the dependencies that I need to run my app.
 
