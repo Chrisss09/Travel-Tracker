@@ -256,6 +256,10 @@ if specific_user['username'] == session['username']:
 
 So if ```specific_user['username']``` is the same as ```session['username']``` this will allow you to delete your own post but if you are not, then an error message will prevent you from deleting another user's post.
 
+I also tested my website by using my actual app to create and add countries to my database by using the form input fields, then I would update, then delete them. By doing this I would make sure because there are two collections that are getting used that it was connected properly with each other.
+
+I have also tested mobile response by using the developer tools in Google Chrome and based on that I have amended the style. I have also viewed it on my phone and found an error with my review page so I needed to go back to fix the mobile response to that.
+
 I have also had friends, family and my mentor test my site and I have had great and valued feedback from them.
 
 My main fault with my app was the padding for my homepage and data entry form they were the length of the page and the text was too big so after putting them in a Bootstrap container and making the text smaller, the style of my website looks a lot better.
