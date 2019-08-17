@@ -19,23 +19,23 @@ I have also implemented a map for the user to use. This can track your location,
 
 Before I started my project I created wireframes using a software called Balsamiq.
 
-The first plan is my homepage - I wanted to create an image slider.
+Plan for my homepage.
 
 ![Homepage](static/images/homepage.PNG)
 
-This one is my login page
+Plan for my login page.
 
 ![Login page](static/images/loginpage.PNG)
 
-Here I have created my planner page
+Plan for my planner page.
 
 ![Planner page](static/images/planner.PNG)
 
-Here I have created the review summary page
+Plan for my review page.
 
 ![Review page](static/images/review.PNG)
 
-And here is a plan for my map
+Plan for my map page.
 
 ![Map page](static/images/mapscreen.PNG)
 
@@ -256,6 +256,10 @@ if specific_user['username'] == session['username']:
 
 So if ```specific_user['username']``` is the same as ```session['username']``` this will allow you to delete your own post but if you are not, then an error message will prevent you from deleting another user's post.
 
+I have also had friends, family and my mentor test my site and I have had great and valued feedback from them.
+
+My main fault with my app was the padding for my homepage and data entry form they were the length of the page and the text was too big so after putting them in a Bootstrap container and making the text smaller, the style of my website looks a lot better.
+
 ## **Deployment**
 
 To deploy my project I used Heroku and for version control I used Git. I didn't deploy to Heroku until I was close to the end but all thoughout the project I kept updating my Github repository using Git and when I was close to finishing I deployed to Heroku and connected my Github repository and when I made changes to anything I could use Git to update both Github and Heroku at the same time.
@@ -316,6 +320,11 @@ if __name__ == '__main__':
 
 ### Content
 
+* The text I have used for my app is all my own words.
+* I got the idea and help to create the map and use Folium from a Udemy course I did on the side of this course. The course was by Ardit Sulce and it was to create 10 big web applications.
+
 ### Media
+
+* The photos I have used are all from Google.
 
 ### Acknowledgements
