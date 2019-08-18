@@ -87,6 +87,12 @@ nav, .log-btn {
     }
 }
 
+@media only screen and (max-width:442px) {
+    .display-1 {
+        font-size: 70px;
+    }
+}
+
 @media only screen and (max-width:380px) {
     .carousel-caption h5 {
         font-size: 20px;
@@ -110,11 +116,41 @@ nav, .log-btn {
     }
 }
 
+@media only screen and (max-width:346px) {
+    .display-1 {
+        font-size: 60px;
+    }
+}
+
+@media only screen and (max-width:309px) {
+    .display-1 {
+        font-size: 55px;
+    }
+}
+
+@media only screen and (max-width:291px) {
+    .display-1 {
+        font-size: 45px;
+    }
+}
+
+@media only screen and (max-width:254px) {
+    .display-1 {
+        font-size: 38px;
+    }
+}
+
 @media only screen and (max-width:248px) {
     .carousel-caption h5 {
         font-size: 17px;
     }
     .carousel-caption p {
         font-size: 8px;
+    }
+}
+
+@media only screen and (max-width:228px) {
+    .display-1 {
+        font-size: 30px;
     }
 }
