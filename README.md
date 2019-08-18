@@ -368,3 +368,9 @@ This section I will reference where I got my code and my influences.
   * To create my readme file I used a video of [Brad Traversy](https://www.youtube.com/watch?v=HUBNt18RFbo&t=903s) to learn some useful and cool tips to effectively create a good report.
 
 ### Acknowledgements
+
+I would like to thank my friends and family who tested my website and for their valuable feedback.
+
+I would like to thank my mentor Mark Railton for his advise and recommendations to improve my website.
+
+I would like to give a special thanks to my friend and student at the Code Institute: Ioan Hadarean. Ioan has gave me some great advise and motivation to do better, he has also gave me his spare time to help me with issues and ways I can improve my site.
