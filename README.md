@@ -331,4 +331,33 @@ if __name__ == '__main__':
 
 * The photos I have used are all from Google.
 
+### Code / Inspirations
+
+This section I will reference where I got my code and my influences.
+
+* Bootstrap Carousel
+  * To create my carousel on my homepage I used a couple of videos on Youtube to get ideas and they were as follows; [System 22 IT Solutions](https://www.youtube.com/watch?v=N0LZdyKupx8&t=827s), [Drew Ryan](https://www.youtube.com/watch?v=9cKsq14Kfsw&t=202s)
+
+* Code Institute - Task Manager
+  * I got the basic setup and layout code for Flask based on the Task Manager lessons by The Code Institute.
+
+* Folium
+  * To create my map I got inspiration to do this by going through a Udemy course and liking the idea, the course was by [Ardit Sulce](https://www.udemy.com/the-python-mega-course/) and it was a Python Mega Course. I also did more research on Folium using various Youtube videos such as; [Brad Traversy](https://www.youtube.com/watch?v=4RnU5qKTfYY&t=1053s). I also thought videos by [PyData](https://www.youtube.com/watch?v=xN2N-p33V1k), [Get Set Python](https://www.youtube.com/watch?v=OlSQ2TEP3oc&t=230s), [Coding Garden with CJ](https://www.youtube.com/watch?v=J7pFiXh-ydA), [Dr. Vytautas Bielinskas
+](https://www.youtube.com/watch?v=0IjdfgmWzMk&t=305s) were all an interesting watch.
+
+* Login system
+  * To create my login system I used a video by [Pretty Printed](https://www.youtube.com/watch?v=vVx1737auSE) and one by [Daily Web Coding](https://www.youtube.com/watch?v=d04xxdrc7Yw&t=1345s).
+
+* Flash messages
+  * To create my flash messages my research came from a Youtube user called [Julian Nash](https://www.youtube.com/watch?v=T1PLBEEZU8o&t=5s) and also [Pretty Printed](https://www.youtube.com/watch?v=eBwhBrNbrNI&t=748s).
+
+* Session module
+  * To research the session module I used a couple of videos to help me, which was a couple by [Pretty Printed](https://www.youtube.com/watch?v=0SQdkDpMzKE&t=302s) and the second one by [Pretty Printed](https://www.youtube.com/watch?v=T1ZVyY1LWOg).
+
+* Environment Variables - dotenv file
+  * To learn about environment variables and implement this in my project I used a couple of videos to help me which are: [Link here](https://www.youtube.com/watch?v=1gqQi9HLgHs&t=332s), [Pretty Printed](https://www.youtube.com/watch?v=R0hpSIPqZek) and another one by [Pretty Printed](https://www.youtube.com/watch?v=QtACou6PsWI&t=2s) and by using these videos I was able to understand how to use this.
+
+* Markdown text
+  * To create my readme file I used a video of [Brad Traversy](https://www.youtube.com/watch?v=HUBNt18RFbo&t=903s) to learn some useful and cool tips to effectively create a good report.
+
 ### Acknowledgements
