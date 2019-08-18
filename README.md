@@ -258,7 +258,7 @@ So if ```specific_user['username']``` is the same as ```session['username']``` t
 
 I also tested my website by using my actual app to create and add countries to my database by using the form input fields, then I would update, then delete them. By doing this I would make sure because there are two collections that are getting used that it was connected properly with each other.
 
-I have also tested mobile response by using the developer tools in Google Chrome and based on that I have amended the style. I have also viewed it on my phone and found an error with my review page so I needed to go back to fix the mobile response to that.
+I have also tested mobile response by using the developer tools in Google Chrome and based on that I have amended the style. I have also viewed it on my phone and found an error with my summary page, as I found the title of the page not mobile responsive so I went back to fix that. Whilst in mobile view I found mobile responsive faults with a couple of my buttons and I found that it was due to a class fault so I removed it and added a Bootstrap class to it instead and it worked ok.
 
 I have also had friends, family and my mentor test my site and I have had great and valued feedback from them.
 
