@@ -339,11 +339,18 @@ This section I will reference where I got my code and my influences.
   * To create my carousel on my homepage I used a couple of videos on Youtube to get ideas and they were as follows; [System 22 IT Solutions](https://www.youtube.com/watch?v=N0LZdyKupx8&t=827s), [Drew Ryan](https://www.youtube.com/watch?v=9cKsq14Kfsw&t=202s)
 
 * Code Institute - Task Manager
-  * I got the basic setup and layout code for Flask based on the Task Manager lessons by The Code Institute.
+  * I got the basic setup and layout code for Flask and MongoDB based on the Task Manager lessons by The Code Institute. Also towards the end of my project to get better at MongoDB I worked through a MongDB course on Udemy by [Maximilian Schwarzmüller](https://www.udemy.com/mongodb-the-complete-developers-guide/).
+
+  * I also used the documentation to MongoDB to get more information.
 
 * Folium
   * To create my map I got inspiration to do this by going through a Udemy course and liking the idea, the course was by [Ardit Sulce](https://www.udemy.com/the-python-mega-course/) and it was a Python Mega Course. I also did more research on Folium using various Youtube videos such as; [Brad Traversy](https://www.youtube.com/watch?v=4RnU5qKTfYY&t=1053s). I also thought videos by [PyData](https://www.youtube.com/watch?v=xN2N-p33V1k), [Get Set Python](https://www.youtube.com/watch?v=OlSQ2TEP3oc&t=230s), [Coding Garden with CJ](https://www.youtube.com/watch?v=J7pFiXh-ydA), [Dr. Vytautas Bielinskas
 ](https://www.youtube.com/watch?v=0IjdfgmWzMk&t=305s) were all an interesting watch.
+
+  * Also instead of using Youtube, I read on other websites about Folium, which were; [Kaggle](https://www.kaggle.com/daveianhickey/how-to-folium-for-maps-heatmaps-time-analysis), and I have read various articles on Stack Overflow.
+
+* Map data
+  * To get the data for my map I used a couple of websites which are; [The Richest](https://www.therichest.com/rich-list/rich-countries/the-10-best-countries-in-the-world-officially/quickview/11), [Life Hack](https://www.lifehack.org/articles/lifestyle/25-truly-amazing-places-you-must-visit-before-you-die.html) and, [Top Teny](https://www.topteny.com/top-10-best-restaurants-in-the-world-2015/).
 
 * Login system
   * To create my login system I used a video by [Pretty Printed](https://www.youtube.com/watch?v=vVx1737auSE) and one by [Daily Web Coding](https://www.youtube.com/watch?v=d04xxdrc7Yw&t=1345s).
