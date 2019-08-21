@@ -16,7 +16,6 @@ app.config["MONGO_URI"] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 countries = mongo.db.country_post.find()
-hotels = mongo.db.hotel.find()
 
 # Generated map
 map_obj = folium.Map([45, 3], zoom_start=4, tiles="cartodbpositron")
@@ -108,19 +107,33 @@ def add_country():
 @app.route('/confirm_country', methods=['POST'])
 def confirm_country():
     specific_user = mongo.db.user
+    the_country = mongo.db.country_post
     if specific_user:
-        the_country = mongo.db.country_post
-        the_country.insert_one(request.form.to_dict())
+        the_country.insert_many([
+            {
+                'username': session['username'],
+                'country_name':request.form.get('country_name'),
+                'travel_to_date':request.form.get('travel_to_date'),
+                'travel_from_date':request.form.get('travel_from_date'),
+                'flight_time_to':request.form.get('flight_time_to'),
+                'flight_time_from':request.form.get('flight_time_from'),
+                'todo_done':request.form.get('todo_done'),
+                'blog':request.form.get('blog'),
+                'rating_cat':request.form.get('rating_cat'),
+                'hotel_name':request.form.get('hotel_name'),
+                'hotel_address':request.form.get('hotel_address'),
+                'hotel_postcode':request.form.get('hotel_postcode')
+            }])
     return redirect(url_for('travel_planner'))
 
 @app.route('/edit_country/<country_id>')
 def edit_country(country_id):
     specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
-    # specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+    specific_user = mongo.db.country_post.find_one({'username': specific_country['username']})
 
-    # if specific_user['username'] != session['username']:
-    #     flash('You cannot edit another users post')
-    #     return redirect(url_for('travel_planner'))
+    if specific_user['username'] != session['username']:
+        flash('You cannot edit another users post')
+        return redirect(url_for('travel_planner'))
     return render_template('updatecount.html', specific_country=specific_country, rating=mongo.db.rating.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
@@ -130,7 +143,7 @@ def update_count(country_id):
     if specific_user:
         update_country.update({'_id': ObjectId(country_id)},
             {
-                #'username': session['username'],
+                'username': session['username'],
                 'country_name':request.form.get('country_name'),
                 'travel_to_date':request.form.get('travel_to_date'),
                 'travel_from_date':request.form.get('travel_from_date'),
@@ -147,13 +160,13 @@ def update_count(country_id):
 
 @app.route('/delete_country/<country_id>')
 def delete_country(country_id):
-    #specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
-    # specific_user = mongo.db.user.find_one({'username': specific_country['username']})
-    # if specific_user['username'] == session['username']:
-    del_country = mongo.db.country_post
-    del_country.remove({'_id': ObjectId(country_id)})
-    # else:
-    #     flash('You cannot delete another users post')
+    specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
+    specific_user = mongo.db.country_post.find_one({'username': specific_country['username']})
+    if specific_user['username'] == session['username']:
+        del_country = mongo.db.country_post
+        del_country.remove({'_id': ObjectId(country_id)})
+    else:
+        flash('You cannot delete another users post')
     return redirect(url_for('travel_planner'))
 
 @app.route('/my_map')
@@ -192,4 +205,4 @@ def travel_map():
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT', 5000)),
-            debug=True)
+            debug=False)
