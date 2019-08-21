@@ -98,7 +98,7 @@ def travel_planner():
 
 @app.route('/current_country/<country_id>', methods=['POST', 'GET'])
 def current_country(country_id):
-    specific_country = mongo.db.country_post.find({'_id': ObjectId(country_id)})
+    specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
     return render_template('country.html', specific_country=specific_country)
 
 @app.route('/add_country')
@@ -115,25 +115,22 @@ def confirm_country():
 
 @app.route('/edit_country/<country_id>')
 def edit_country(country_id):
-    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    specific_hotel = mongo.db.hotel.find_one({'country_name': specific_country['country_name']})
-    specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+    specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
+    # specific_user = mongo.db.user.find_one({'username': specific_country['username']})
 
-    if specific_user['username'] != session['username']:
-        flash('You cannot edit another users post')
-        return redirect(url_for('travel_planner'))
-    return render_template('updatecount.html', specific_country=specific_country, specific_hotel=specific_hotel, rating=mongo.db.rating.find())
+    # if specific_user['username'] != session['username']:
+    #     flash('You cannot edit another users post')
+    #     return redirect(url_for('travel_planner'))
+    return render_template('updatecount.html', specific_country=specific_country, rating=mongo.db.rating.find())
 
 @app.route('/update_count/<country_id>', methods=['POST'])
 def update_count(country_id):
-    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
     specific_user = mongo.db.user
-    update_country = mongo.db.country
-    update_hotel = mongo.db.hotel
+    update_country = mongo.db.country_post
     if specific_user:
         update_country.update({'_id': ObjectId(country_id)},
             {
-                'username': session['username'],
+                #'username': session['username'],
                 'country_name':request.form.get('country_name'),
                 'travel_to_date':request.form.get('travel_to_date'),
                 'travel_from_date':request.form.get('travel_from_date'),
@@ -141,11 +138,7 @@ def update_count(country_id):
                 'flight_time_from':request.form.get('flight_time_from'),
                 'todo_done':request.form.get('todo_done'),
                 'blog':request.form.get('blog'),
-                'rating_cat':request.form.get('rating_cat')
-            })
-        update_hotel.update({'country_name': specific_country['country_name']},
-            {
-                'country_name':request.form.get('country_name'),
+                'rating_cat':request.form.get('rating_cat'),
                 'hotel_name':request.form.get('hotel_name'),
                 'hotel_address':request.form.get('hotel_address'),
                 'hotel_postcode':request.form.get('hotel_postcode')
@@ -154,15 +147,13 @@ def update_count(country_id):
 
 @app.route('/delete_country/<country_id>')
 def delete_country(country_id):
-    specific_country = mongo.db.country.find_one({'_id': ObjectId(country_id)})
-    specific_user = mongo.db.user.find_one({'username': specific_country['username']})
-    if specific_user['username'] == session['username']:
-        del_country = mongo.db.country
-        del_hotel = mongo.db.hotel
-        del_country.remove({'_id': ObjectId(country_id)})
-        del_hotel.remove({'country_name': specific_country['country_name']})
-    else:
-        flash('You cannot delete another users post')
+    #specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
+    # specific_user = mongo.db.user.find_one({'username': specific_country['username']})
+    # if specific_user['username'] == session['username']:
+    del_country = mongo.db.country_post
+    del_country.remove({'_id': ObjectId(country_id)})
+    # else:
+    #     flash('You cannot delete another users post')
     return redirect(url_for('travel_planner'))
 
 @app.route('/my_map')
