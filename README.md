@@ -264,6 +264,16 @@ I have also had friends, family and my mentor test my site and I have had great 
 
 My main fault with my app was the padding for my homepage and data entry form they were the length of the page and the text was too big so after putting them in a Bootstrap container and making the text smaller, the style of my website looks a lot better.
 
+Towards the end of my project I did further testing and I found bugs in my CRUD operations and this was due to my primary key being a country name.
+
+For testing purposes I inserted two posts with the same countries but different hotels, so I found doing that, due to having a seperate collection for hotels it would then overwrite my hotel info.
+
+When testing the update route and it was the same again where I have two of the same countries and if I update one country, then the other post would update and same for the delete route.
+
+To resolve this I created a new collection and merged both country and hotel info into one and re-typed my CRUD code to suite. So now I have a user post collection, a username collection and a ratings collection. By doing this I made my code shorter which is a benefit and this has all been tested and all works.
+
+I would of liked to try and fix my code in a better way but I feel that I have spent too much time on this project and I am running out of time.
+
 ## **Deployment**
 
 To deploy my project I used Heroku and for version control I used Git. I didn't deploy to Heroku until I was close to the end but all thoughout the project I kept updating my Github repository using Git and when I was close to finishing I deployed to Heroku and connected my Github repository and when I made changes to anything I could use Git to update both Github and Heroku at the same time.
