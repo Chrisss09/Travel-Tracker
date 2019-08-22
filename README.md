@@ -260,6 +260,8 @@ I also tested my website by using my actual app to create and add countries to m
 
 I have also tested mobile response by using the developer tools in Google Chrome and based on that I have amended the style. I have also viewed it on my phone and found an error with my summary page, as I found the title of the page not mobile responsive so I went back to fix that. Whilst in mobile view I found mobile responsive faults with a couple of my buttons and I found that it was due to a class fault so I removed it and added a Bootstrap class to it instead and it worked ok.
 
+I have also tested my app on a smaller Iphone using the Safari browser and all features work and the mobile response looks good.
+
 I have also had friends, family and my mentor test my site and I have had great and valued feedback from them.
 
 My main fault with my app was the padding for my homepage and data entry form they were the length of the page and the text was too big so after putting them in a Bootstrap container and making the text smaller, the style of my website looks a lot better.
