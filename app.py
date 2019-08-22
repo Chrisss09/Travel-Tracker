@@ -56,12 +56,10 @@ def login():
     if request.method == 'POST':
         user = mongo.db.user
         current_user = user.find_one({'username': request.form['username']})
-
         if current_user:
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
         flash("Username not recognised")
-
     if 'username' in session:
         return redirect(url_for('travel_planner'))
     return render_template('login.html')
@@ -71,13 +69,11 @@ def register():
     if request.method == 'POST':
         user = mongo.db.user
         existing_user = user.find_one({'username': request.form['username']})
-
         if existing_user is None:
             user.insert_one({'username': request.form['username']})
             session['username'] = request.form['username']
             return redirect(url_for('travel_planner'))
         flash("That username already exists")
-
     if 'username' in session:
         return redirect(url_for('travel_planner'))
     return render_template('register.html')
@@ -130,7 +126,6 @@ def confirm_country():
 def edit_country(country_id):
     specific_country = mongo.db.country_post.find_one({'_id': ObjectId(country_id)})
     specific_user = mongo.db.country_post.find_one({'username': specific_country['username']})
-
     if specific_user['username'] != session['username']:
         flash('You cannot edit another users post')
         return redirect(url_for('travel_planner'))
